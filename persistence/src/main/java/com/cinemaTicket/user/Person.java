@@ -1,5 +1,6 @@
 package com.cinemaTicket.user;
 
+import com.cinemaTicket.cinema.CinemaComment;
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.ticket.Ticket;
@@ -26,6 +27,9 @@ public class Person extends BaseEntity {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<CinemaComment> cinemaComments = new ArrayList<>();
 
     public Person() {
     }
@@ -75,5 +79,29 @@ public class Person extends BaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<FilmComment> getFilmComments() {
+        return filmComments;
+    }
+
+    public void setFilmComments(List<FilmComment> filmComments) {
+        this.filmComments = filmComments;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public List<CinemaComment> getCinemaComments() {
+        return cinemaComments;
+    }
+
+    public void setCinemaComments(List<CinemaComment> cinemaComments) {
+        this.cinemaComments = cinemaComments;
     }
 }
