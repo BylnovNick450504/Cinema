@@ -7,13 +7,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "room_status")
-public class roomStatus extends BaseEntity {
+public class RoomStatus extends BaseEntity {
     private String roomStatus;
 
-    public roomStatus() {
+    public RoomStatus() {
     }
 
-    public roomStatus(String roomStatus) {
+    public RoomStatus(String roomStatus) {
         this.roomStatus = roomStatus;
     }
 
