@@ -2,6 +2,7 @@ package com.cinemaTicket.user;
 
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.comment.FilmComment;
+import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.user.role.Role;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Person extends BaseEntity {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<FilmComment> filmComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Person() {
     }
