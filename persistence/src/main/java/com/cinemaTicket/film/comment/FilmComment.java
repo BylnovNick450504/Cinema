@@ -1,8 +1,11 @@
 package com.cinemaTicket.film.comment;
 
 import com.cinemaTicket.core.BaseEntity;
+import com.cinemaTicket.user.Person;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -12,6 +15,11 @@ public class FilmComment extends BaseEntity {
 
     private String comment;
     private Date commentDate;
+
+    @OneToOne
+    @JoinColumn(name = "creator_id")
+    private Person person;
+
 
     public FilmComment() {
     }
@@ -35,5 +43,13 @@ public class FilmComment extends BaseEntity {
 
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

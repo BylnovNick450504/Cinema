@@ -1,12 +1,12 @@
 package com.cinemaTicket.user;
 
 import com.cinemaTicket.core.BaseEntity;
+import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.user.role.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -19,6 +19,9 @@ public class Person extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<FilmComment> filmComments = new ArrayList<>();
 
     public Person() {
     }
