@@ -1,5 +1,6 @@
 package com.cinemaTicket.film.info;
 
+import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.Film;
 
 import javax.persistence.Entity;
@@ -8,8 +9,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "film_info")
-public class FilmInfo {
+@Table(name = "info")
+public class FilmInfo extends BaseEntity {
     private String info;
 
     public FilmInfo() {

@@ -6,6 +6,7 @@ import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.user.Person;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "ticket")
@@ -21,7 +22,13 @@ public class Ticket extends BaseEntity {
     @JoinColumn(name = "person_id")
     private Person person;
 
+    private Date showDate;
+
     public Ticket() {
+    }
+
+    public Ticket(Date showDate) {
+        this.showDate = showDate;
     }
 
     public CinemaRoom getCinemaRoom() {
@@ -46,5 +53,13 @@ public class Ticket extends BaseEntity {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public Date getShowDate() {
+        return showDate;
+    }
+
+    public void setShowDate(Date showDate) {
+        this.showDate = showDate;
     }
 }

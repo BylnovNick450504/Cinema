@@ -1,6 +1,7 @@
 package com.cinemaTicket.film.comment;
 
 import com.cinemaTicket.core.BaseEntity;
+import com.cinemaTicket.film.Film;
 import com.cinemaTicket.user.Person;
 
 import javax.persistence.Entity;
@@ -20,6 +21,9 @@ public class FilmComment extends BaseEntity {
     @JoinColumn(name = "creator_id")
     private Person person;
 
+    @OneToOne
+    @JoinColumn(name = "film_id")
+    private Film film;
 
     public FilmComment() {
     }
@@ -51,5 +55,13 @@ public class FilmComment extends BaseEntity {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
     }
 }

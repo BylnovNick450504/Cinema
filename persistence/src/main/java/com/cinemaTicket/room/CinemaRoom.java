@@ -1,5 +1,6 @@
 package com.cinemaTicket.room;
 
+import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.room.roomStatus.RoomStatus;
 import com.cinemaTicket.seat.Seat;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "cinema_room")
-public class CinemaRoom {
+public class CinemaRoom extends BaseEntity {
     private String name;
 
     @OneToOne

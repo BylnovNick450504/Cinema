@@ -20,7 +20,8 @@ public class Film extends BaseEntity {
     private Date premiereDate;
     private int age;
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "film_genre")
     private List<Genre> genres = new ArrayList<>();
 
     @ManyToMany(cascade=CascadeType.ALL)
