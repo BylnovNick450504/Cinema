@@ -105,4 +105,16 @@ public class Film extends BaseEntity {
     public void setFilmComments(List<FilmComment> filmComments) {
         this.filmComments = filmComments;
     }
+
+    public void addGenre(Genre genreItem) {
+        genres.add(genreItem);
+    }
+
+    public void addComment(FilmComment filmCommentItem) {
+        filmComments.add(filmCommentItem);
+    }
+
+    public void addInfo(FilmInfo infoItem) {
+        filmInfo.add(infoItem);
+    }
 }

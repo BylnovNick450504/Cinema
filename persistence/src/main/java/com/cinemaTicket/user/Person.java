@@ -104,4 +104,18 @@ public class Person extends BaseEntity {
     public void setCinemaComments(List<CinemaComment> cinemaComments) {
         this.cinemaComments = cinemaComments;
     }
+
+    public void addFilmComment(FilmComment filmCommentItem) {
+        filmComments.add(filmCommentItem);
+    }
+
+    public void addCinemaComment(CinemaComment cinemaCommentItem) {
+        cinemaComments.add(cinemaCommentItem);
+    }
+
+    public void addTicket(Ticket ticketItem) {
+        tickets.add(ticketItem);
+    }
+
+
 }

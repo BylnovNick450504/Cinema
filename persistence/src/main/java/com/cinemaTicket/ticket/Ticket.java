@@ -62,4 +62,6 @@ public class Ticket extends BaseEntity {
     public void setShowDate(Date showDate) {
         this.showDate = showDate;
     }
+
+
 }

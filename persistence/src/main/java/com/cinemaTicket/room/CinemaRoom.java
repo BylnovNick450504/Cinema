@@ -50,4 +50,8 @@ public class CinemaRoom extends BaseEntity {
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
     }
+
+    public void addSeat(Seat seatItem) {
+        seats.add(seatItem);
+    }
 }

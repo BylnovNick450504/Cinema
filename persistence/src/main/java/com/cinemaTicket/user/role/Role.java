@@ -24,4 +24,6 @@ public class Role extends BaseEntity {
     public void setRole(String role) {
         this.role = role;
     }
+
+
 }
