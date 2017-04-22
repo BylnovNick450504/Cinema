@@ -116,6 +116,4 @@ public class Person extends BaseEntity {
     public void addTicket(Ticket ticketItem) {
         tickets.add(ticketItem);
     }
-
-
 }
