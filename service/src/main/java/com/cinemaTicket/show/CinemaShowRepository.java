@@ -4,5 +4,5 @@ import com.cinemaTicket.room.CinemaRoom;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface CinemaRoomRepository extends CrudRepository<CinemaRoom, Long> {
+public interface CinemaShowRepository extends CrudRepository<CinemaShow, Long> {
 }
