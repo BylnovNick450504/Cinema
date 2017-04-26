@@ -7,6 +7,7 @@ import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.comment.FilmCommentRepository;
 import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.film.genre.GenreRepository;
+import com.cinemaTicket.film.info.FilmInfo;
 import com.cinemaTicket.film.info.FilmInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,8 +52,22 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public ResponseStatus addInfo(Long id, CustomMonoRequest info) {
-        return null;
+    public ResponseStatus addInfo(Long id, CustomMonoRequest infoIds) {
+        Film film = filmRepository.findOne(id);
+        if (film == null) {
+            return new ResponseStatus();
+        }
+        List<FilmInfo> filmInfoList = new ArrayList<>();
+        for (Long filmInfoId : infoIds.getIds()) {
+            FilmInfo filmInfo = filmInfoRepository.findOne(filmInfoId);
+            if (filmInfo == null) {
+                return new ResponseStatus();
+            }
+            filmInfoList.add(filmInfo);
+        }
+        film.setFilmInfo(filmInfoList);
+        filmRepository.save(film);
+        return new ResponseStatus(true);
     }
 
     @Override
