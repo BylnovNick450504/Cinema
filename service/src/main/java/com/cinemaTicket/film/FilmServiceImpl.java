@@ -72,6 +72,16 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public ResponseStatus addComment(Long id, CustomSoloRequest comment) {
-        return null;
+        Film film = filmRepository.findOne(id);
+        if (film == null) {
+            return new ResponseStatus();
+        }
+        FilmComment filmComment = filmCommentRepository.findOne(comment.getId());
+        if (filmComment == null) {
+            return new ResponseStatus();
+        }
+        film.addComment(filmComment);
+        filmRepository.save(film);
+        return new ResponseStatus(true);
     }
 }
