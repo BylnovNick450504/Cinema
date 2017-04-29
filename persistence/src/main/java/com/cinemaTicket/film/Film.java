@@ -18,6 +18,7 @@ public class Film extends BaseEntity {
     private String producer;
     private double budget;
     private Date premiereDate;
+    private String description;
     private int age;
 
     @ManyToMany(cascade=CascadeType.ALL)
@@ -34,12 +35,19 @@ public class Film extends BaseEntity {
     public Film() {
     }
 
-    public Film(String name, String producer, double budget, Date premiereDate, int age) {
+    public Film(String name,
+                String producer,
+                double budget,
+                Date premiereDate,
+                int age,
+                String description
+    ) {
         this.name = name;
         this.producer = producer;
         this.budget = budget;
         this.premiereDate = premiereDate;
         this.age = age;
+        this.description = description;
     }
 
     public String getName() {
@@ -116,5 +124,13 @@ public class Film extends BaseEntity {
 
     public void addInfo(FilmInfo infoItem) {
         filmInfo.add(infoItem);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

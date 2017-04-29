@@ -32,9 +32,9 @@ public class Seat extends BaseEntity {
     public Seat() {
     }
 
-    public Seat(int number, int row) {
-        this.number = number;
+    public Seat(int row, int number) {
         this.row = row;
+        this.number = number;
     }
 
     public int getNumber() {

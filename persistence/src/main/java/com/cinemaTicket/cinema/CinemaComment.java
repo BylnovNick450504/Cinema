@@ -1,7 +1,7 @@
 package com.cinemaTicket.cinema;
 
 import com.cinemaTicket.core.BaseEntity;
-import com.cinemaTicket.user.Person;
+import com.cinemaTicket.user.User;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,7 +15,7 @@ public class CinemaComment extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "creator_id")
-    private Person person;
+    private User user;
 
     public CinemaComment() {
     }
@@ -32,11 +32,11 @@ public class CinemaComment extends BaseEntity {
         this.comment = comment;
     }
 
-    public Person getPerson() {
-        return person;
+    public User getUser() {
+        return user;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

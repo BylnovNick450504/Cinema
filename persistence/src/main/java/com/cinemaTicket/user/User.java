@@ -8,37 +8,48 @@ import com.cinemaTicket.user.role.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "person")
-public class Person extends BaseEntity {
+public class User extends BaseEntity {
     private String username;
-    private String password;
     private String email;
     private String phoneNumber;
+    private String name;
+    private String password;
 
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<FilmComment> filmComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<CinemaComment> cinemaComments = new ArrayList<>();
 
-    public Person() {
+    @Column(name = "last_password_reset_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastPasswordResetDate;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ROLE_PERSON")
+    private List<Role> roles = new ArrayList<>();
+
+    public User() {
     }
 
-    public Person(String username, String password, String email, String phoneNumber) {
+    public User(String username,
+                String password,
+                String email,
+                String phoneNumber,
+                String name) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.name = name;
     }
 
     public String getUsername() {
@@ -71,14 +82,6 @@ public class Person extends BaseEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public List<FilmComment> getFilmComments() {
@@ -115,5 +118,33 @@ public class Person extends BaseEntity {
 
     public void addTicket(Ticket ticketItem) {
         tickets.add(ticketItem);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role roleItem) {
+        roles.add(roleItem);
     }
 }

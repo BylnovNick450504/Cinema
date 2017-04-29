@@ -1,9 +1,9 @@
 package com.cinemaTicket.ticket;
 
 import com.cinemaTicket.core.BaseEntity;
-import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.seat.Seat;
-import com.cinemaTicket.user.Person;
+import com.cinemaTicket.show.CinemaShow;
+import com.cinemaTicket.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,14 +13,14 @@ import java.util.Date;
 public class Ticket extends BaseEntity {
 
     @OneToOne
-    private CinemaRoom cinemaRoom;
+    private CinemaShow cinemaShow;
 
     @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
     private Seat seat;
 
     @OneToOne
     @JoinColumn(name = "person_id")
-    private Person person;
+    private User user;
 
     private Date showDate;
 
@@ -31,12 +31,12 @@ public class Ticket extends BaseEntity {
         this.showDate = showDate;
     }
 
-    public CinemaRoom getCinemaRoom() {
-        return cinemaRoom;
+    public CinemaShow getCinemaShow() {
+        return cinemaShow;
     }
 
-    public void setCinemaRoom(CinemaRoom cinemaRoom) {
-        this.cinemaRoom = cinemaRoom;
+    public void setCinemaShow(CinemaShow cinemaShow) {
+        this.cinemaShow = cinemaShow;
     }
 
     public Seat getSeat() {
@@ -47,12 +47,12 @@ public class Ticket extends BaseEntity {
         this.seat = seat;
     }
 
-    public Person getPerson() {
-        return person;
+    public User getUser() {
+        return user;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getShowDate() {
