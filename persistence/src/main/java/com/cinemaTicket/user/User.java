@@ -5,6 +5,8 @@ import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.user.role.Role;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "person")
 public class User extends BaseEntity {
+
+    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
     private String username;
     private String email;
     private String phoneNumber;
@@ -46,7 +50,7 @@ public class User extends BaseEntity {
                 String phoneNumber,
                 String name) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.name = name;
@@ -65,7 +69,7 @@ public class User extends BaseEntity {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PASSWORD_ENCODER.encode(password);
     }
 
     public String getEmail() {

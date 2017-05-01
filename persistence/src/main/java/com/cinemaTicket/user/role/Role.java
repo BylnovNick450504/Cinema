@@ -3,6 +3,7 @@ package com.cinemaTicket.user.role;
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.user.User;
 
+import javax.jws.soap.InitParam;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -41,4 +42,6 @@ public class Role extends BaseEntity {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+
 }
