@@ -20,6 +20,8 @@ public class Film extends BaseEntity {
     private Date premiereDate;
     private String description;
     private int age;
+    private int rating;
+    private int recommendTicketCost;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "film_genre")
@@ -40,7 +42,9 @@ public class Film extends BaseEntity {
                 double budget,
                 Date premiereDate,
                 int age,
-                String description
+                String description,
+                int rating,
+                int recommendTicketCost
     ) {
         this.name = name;
         this.producer = producer;
@@ -48,6 +52,19 @@ public class Film extends BaseEntity {
         this.premiereDate = premiereDate;
         this.age = age;
         this.description = description;
+        this.rating = rating;
+        this.recommendTicketCost = recommendTicketCost;
+    }
+
+    public void updateFilm(Film film) {
+        this.name = film.getName();
+        this.producer = film.getProducer();
+        this.budget = film.getBudget();
+        this.premiereDate = film.getPremiereDate();
+        this.age = film.getAge();
+        this.description = film.getDescription();
+        this.rating = film.getRating();
+        this.recommendTicketCost = film.getRecommendTicketCost();
     }
 
     public String getName() {
@@ -132,5 +149,21 @@ public class Film extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getRecommendTicketCost() {
+        return recommendTicketCost;
+    }
+
+    public void setRecommendTicketCost(int recommendTicketCost) {
+        this.recommendTicketCost = recommendTicketCost;
     }
 }

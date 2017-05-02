@@ -1,10 +1,10 @@
 package com.cinemaTicket.film;
 
+import com.cinemaTicket.film.mock.MockFilm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FilmController {
@@ -21,9 +21,21 @@ public class FilmController {
         return "hello admin";
     }
 
-    @RequestMapping(value = "/films/evgen", method = RequestMethod.GET)
-    public String fun1() {
-        return "hello evgen";
+    @RequestMapping(value = "/films/create", method = RequestMethod.POST)
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createFilm(@RequestBody MockFilm mockFilm) {
+        return filmService.createFilm(mockFilm);
     }
 
+    @RequestMapping(value = "/films/update/{id}", method = RequestMethod.PUT)
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateFilm(@PathVariable Long id, @RequestBody MockFilm mockFilm) {
+        return filmService.updateFilm(id, mockFilm);
+    }
+
+    @RequestMapping(value = "/films/delete/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteFilm(@PathVariable Long id) {
+        return filmService.deleteFilm(id);
+    }
 }

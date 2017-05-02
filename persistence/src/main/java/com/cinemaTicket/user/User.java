@@ -56,6 +56,7 @@ public class User extends BaseEntity {
         this.name = name;
     }
 
+
     public String getUsername() {
         return username;
     }
@@ -118,10 +119,16 @@ public class User extends BaseEntity {
 
     public void addCinemaComment(CinemaComment cinemaCommentItem) {
         cinemaComments.add(cinemaCommentItem);
+        cinemaCommentItem.setUser(this);
     }
 
     public void addTicket(Ticket ticketItem) {
         tickets.add(ticketItem);
+        ticketItem.setUser(this);
+    }
+    //replace i n Role
+    public void addRole(Role roleItem) {
+        roles.add(roleItem);
     }
 
     public String getName() {
@@ -146,9 +153,5 @@ public class User extends BaseEntity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    public void addRole(Role roleItem) {
-        roles.add(roleItem);
     }
 }

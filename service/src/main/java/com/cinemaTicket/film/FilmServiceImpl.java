@@ -9,7 +9,11 @@ import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.film.genre.GenreRepository;
 import com.cinemaTicket.film.info.FilmInfo;
 import com.cinemaTicket.film.info.FilmInfoRepository;
+import com.cinemaTicket.film.mock.FilmFactory;
+import com.cinemaTicket.film.mock.MockFilm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -83,5 +87,30 @@ public class FilmServiceImpl implements FilmService {
         film.addComment(filmComment);
         filmRepository.save(film);
         return new ResponseStatus(true);
+    }
+
+    @Override
+    public ResponseEntity<?> createFilm(MockFilm mockFilm) {
+        Film film = FilmFactory.create(mockFilm);
+        film = filmRepository.save(film);
+        return new ResponseEntity<>(film, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> updateFilm(Long id, MockFilm mockFilm) {
+        Film oldFilm = filmRepository.findOne(id);
+        if (oldFilm == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Film newFilm = FilmFactory.create(mockFilm);
+        oldFilm.updateFilm(newFilm);
+        filmRepository.save(oldFilm);
+        return new ResponseEntity<>(oldFilm, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> deleteFilm(Long id) {
+        filmRepository.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
