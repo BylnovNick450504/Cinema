@@ -15,20 +15,14 @@ public class FilmController {
         this.filmService = filmService;
     }
 
-    @RequestMapping(value = "/films/hello", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ADMIN')")
-    public String fun() {
-        return "hello admin";
-    }
-
     @RequestMapping(value = "/films/create", method = RequestMethod.POST)
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createFilm(@RequestBody MockFilm mockFilm) {
         return filmService.createFilm(mockFilm);
     }
 
     @RequestMapping(value = "/films/update/{id}", method = RequestMethod.PUT)
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateFilm(@PathVariable Long id, @RequestBody MockFilm mockFilm) {
         return filmService.updateFilm(id, mockFilm);
     }

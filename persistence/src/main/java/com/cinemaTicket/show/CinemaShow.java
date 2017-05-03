@@ -23,13 +23,14 @@ public class CinemaShow extends BaseEntity {
     @JoinColumn(name = "film_id")
     private Film film;
 
+    private Integer status;
+
     public CinemaShow() {
     }
 
-    public CinemaShow(Date showDate, CinemaRoom cinemaRoom, Film film) {
+    public CinemaShow(Date showDate, int status) {
         this.showDate = showDate;
-        this.cinemaRoom = cinemaRoom;
-        this.film = film;
+        this.status = status;
     }
 
     public Date getShowDate() {
@@ -54,5 +55,18 @@ public class CinemaShow extends BaseEntity {
 
     public void setFilm(Film film) {
         this.film = film;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void update(CinemaShow cinemaShow) {
+        showDate = cinemaShow.getShowDate();
+        status = cinemaShow.getStatus();
     }
 }

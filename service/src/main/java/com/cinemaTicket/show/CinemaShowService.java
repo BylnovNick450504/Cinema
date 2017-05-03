@@ -3,10 +3,12 @@ package com.cinemaTicket.show;
 
 import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
-import com.cinemaTicket.film.Film;
-import com.cinemaTicket.room.CinemaRoom;
+import org.springframework.http.ResponseEntity;
 
 public interface CinemaShowService {
-    ResponseStatus addFilm(Long id, CustomSoloRequest filmItem);
-    ResponseStatus addCinemaRoom(Long id, CustomSoloRequest cinemaRoomItem);
+    ResponseEntity<?> addFilm(Long id, CustomSoloRequest filmItem);
+    ResponseEntity<?> addCinemaRoom(Long id, CustomSoloRequest cinemaRoomItem);
+    ResponseEntity<?> createCinemaShow(CinemaShow cinemaShow);
+    ResponseEntity<?> updateCinemaShow(Long id, CinemaShow cinemaShow);
+    ResponseEntity<?> deleteCinemaShow(Long id);
 }
