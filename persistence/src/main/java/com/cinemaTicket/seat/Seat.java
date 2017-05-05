@@ -4,11 +4,10 @@ import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.seat.seatStatus.SeatStatus;
 import com.cinemaTicket.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "seat")
@@ -21,12 +20,12 @@ public class Seat extends BaseEntity {
     @JoinColumn(name = "seat_status_id")
     private SeatStatus seatStatus;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoom cinemaRoom;
 
-    @OneToOne
-    @JoinColumn(name = "ticket_id")
+    @OneToOne(mappedBy = "seat")
     private Ticket ticket;
 
     public Seat() {
@@ -75,5 +74,10 @@ public class Seat extends BaseEntity {
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
+    }
+
+    public void addTicket(Ticket ticketItem) {
+        ticketItem.setSeat(this);
+        this.ticket = ticketItem;
     }
 }

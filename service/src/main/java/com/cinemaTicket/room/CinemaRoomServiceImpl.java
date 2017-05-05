@@ -9,6 +9,8 @@ import com.cinemaTicket.seat.SeatRepository;
 import com.cinemaTicket.seat.seatStatus.SeatStatus;
 import com.cinemaTicket.seat.seatStatus.SeatStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -41,7 +43,6 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         int row = 1;
         final long SEAT_STATUS_ID = 1;
         final String SEAT_STATUS = "FREE";
-        List<Seat> seats = new ArrayList<>();
         //find cinemaRoom in db
         cinemaRoom = cinemaRoomRepository.findOne(id);
         if (cinemaRoom == null) {
@@ -57,7 +58,9 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
             column = 1;
             for(int j = 0; j < cinemaRoomInfo.getColumns(); j++) {
                 Seat seat = new Seat(row, column++);
+                seat.setCinemaRoom(cinemaRoom);
                 seatRepository.save(seat);
+
             }
         }
         return new ResponseStatus(true);
@@ -79,5 +82,46 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         cinemaRoom.setRoomStatus(roomStatus);
         cinemaRoomRepository.save(cinemaRoom);
         return new ResponseStatus(true);
+    }
+
+    @Override
+    public ResponseEntity<?> createCinemaRoom(CinemaRoom cinemaRoomItem) {
+        int column;
+        int row = 1;
+        final String SEAT_STATUS = "FREE";
+        SeatStatus seatStatus = seatStatusRepository.findBySeatStatus(SEAT_STATUS);
+        if (seatStatus == null) {
+            return new ResponseEntity<>(
+                            new ResponseStatus(false,"no seat status 'free'"),
+                            HttpStatus.NOT_FOUND);
+        }
+        //generate seat for current cinemaRoom and save them in db
+        for(int i = 0; i < cinemaRoomItem.getRow(); i++, row++) {
+            column = 1;
+            for(int j = 0; j < cinemaRoomItem.getCol(); j++) {
+                Seat seat = new Seat(row, column++);
+                seat.setSeatStatus(seatStatus);
+                cinemaRoomItem.addSeat(seat);
+            }
+        }
+        cinemaRoomRepository.save(cinemaRoomItem);
+        return new ResponseEntity<>(new ResponseStatus(true, "cinema room is created"),
+                                    HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> detachCinemaRoom(Long id) {
+        CinemaRoom cinemaRoom = cinemaRoomRepository.findOne(id);
+        if (cinemaRoom == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no cinemaRoom"),
+                                        HttpStatus.NOT_FOUND);
+        }
+        for(Seat seatTemp: cinemaRoom.getSeats()) {
+            seatTemp.setCinemaRoom(null);
+
+        }
+        cinemaRoom.getSeats().clear();
+        cinemaRoomRepository.delete(cinemaRoom);
+        return new ResponseEntity<>(new ResponseStatus(), HttpStatus.CREATED);
     }
 }

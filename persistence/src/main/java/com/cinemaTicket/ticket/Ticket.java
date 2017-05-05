@@ -13,22 +13,18 @@ import java.util.Date;
 public class Ticket extends BaseEntity {
 
     @OneToOne
+    @JoinColumn(name = "cinema_show_id")
     private CinemaShow cinemaShow;
 
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "seat_id")
     private Seat seat;
 
     @OneToOne
     @JoinColumn(name = "person_id")
     private User user;
 
-    private Date showDate;
-
     public Ticket() {
-    }
-
-    public Ticket(Date showDate) {
-        this.showDate = showDate;
     }
 
     public CinemaShow getCinemaShow() {
@@ -54,14 +50,4 @@ public class Ticket extends BaseEntity {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public Date getShowDate() {
-        return showDate;
-    }
-
-    public void setShowDate(Date showDate) {
-        this.showDate = showDate;
-    }
-
-
 }

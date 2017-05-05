@@ -5,6 +5,7 @@ import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.film.info.FilmInfo;
+import com.cinemaTicket.show.CinemaShow;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class Film extends BaseEntity {
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
     private List<FilmComment> filmComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+    private List<CinemaShow> cinemaShows = new ArrayList<>();
 
     public Film() {
     }
@@ -166,4 +170,13 @@ public class Film extends BaseEntity {
     public void setRecommendTicketCost(int recommendTicketCost) {
         this.recommendTicketCost = recommendTicketCost;
     }
+
+    public List<CinemaShow> getCinemaShows() {
+        return cinemaShows;
+    }
+
+    public void setCinemaShows(List<CinemaShow> cinemaShows) {
+        this.cinemaShows = cinemaShows;
+    }
 }
+

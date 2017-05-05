@@ -11,4 +11,5 @@ public interface CinemaShowService {
     ResponseEntity<?> createCinemaShow(CinemaShow cinemaShow);
     ResponseEntity<?> updateCinemaShow(Long id, CinemaShow cinemaShow);
     ResponseEntity<?> deleteCinemaShow(Long id);
+    ResponseEntity<?> createAndInitCinemaShow(CinemaShowInfo cinemaShowInfo);
 }

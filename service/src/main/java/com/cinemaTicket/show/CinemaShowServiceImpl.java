@@ -6,6 +6,9 @@ import com.cinemaTicket.film.Film;
 import com.cinemaTicket.film.FilmRepository;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.room.CinemaRoomRepository;
+import com.cinemaTicket.seat.Seat;
+import com.cinemaTicket.ticket.Ticket;
+import com.cinemaTicket.ticket.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +20,18 @@ public class CinemaShowServiceImpl implements CinemaShowService {
     private final FilmRepository filmRepository;
     private final CinemaRoomRepository cinemaRoomRepository;
     private final CinemaShowRepository cinemaShowRepository;
+    private final TicketRepository ticketRepository;
 
     @Autowired
-    public CinemaShowServiceImpl(FilmRepository filmRepository, CinemaRoomRepository cinemaRoomRepository, CinemaShowRepository cinemaShowRepository) {
+    public CinemaShowServiceImpl(FilmRepository filmRepository,
+                                 CinemaRoomRepository cinemaRoomRepository,
+                                 CinemaShowRepository cinemaShowRepository,
+                                 TicketRepository ticketRepository
+    ) {
         this.filmRepository = filmRepository;
         this.cinemaRoomRepository = cinemaRoomRepository;
         this.cinemaShowRepository = cinemaShowRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     @Override
@@ -62,7 +71,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
             return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
         }
         cinemaShowOld.update(cinemaShowNew);
-        cinemaShowOld = cinemaShowRepository.save(cinemaShowOld);
+        //cinemaShowRepository.save(cinemaShowOld);
         return new ResponseEntity<>(cinemaShowOld, HttpStatus.FOUND);
     }
 
@@ -74,5 +83,29 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         }
         cinemaShowRepository.delete(id);
         return new ResponseEntity<>(new ResponseStatus(true), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> createAndInitCinemaShow(CinemaShowInfo cinemaShowInfo) {
+
+        Film filmItem = filmRepository.findOne(cinemaShowInfo.getFilmId());
+        CinemaRoom cinemaRoomItem = cinemaRoomRepository.findOne(cinemaShowInfo.getCinemaRoomId());
+        if (filmItem == null || cinemaRoomItem == null) {
+            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
+        }
+        CinemaShow cinemaShow = new CinemaShow(cinemaShowInfo.getShowDate(),
+                                               cinemaShowInfo.getStatus());
+        for (Seat seat : cinemaRoomItem.getSeats()) {
+            Ticket ticket = new Ticket();
+            ticket.setSeat(seat);
+            cinemaShow.addTicket(ticket);
+        }
+
+        cinemaShow.setFilm(filmItem);
+        cinemaShow.setCinemaRoom(cinemaRoomItem);
+        cinemaShow.setStatus(cinemaShowInfo.getStatus());
+        cinemaShowRepository.save(cinemaShow);
+
+        return new ResponseEntity<>(new ResponseStatus(true), HttpStatus.CREATED);
     }
 }

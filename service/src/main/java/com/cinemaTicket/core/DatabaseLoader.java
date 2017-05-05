@@ -2,6 +2,10 @@ package com.cinemaTicket.core;
 
 
 
+import com.cinemaTicket.film.Film;
+import com.cinemaTicket.film.FilmRepository;
+import com.cinemaTicket.room.CinemaRoom;
+import com.cinemaTicket.room.CinemaRoomRepository;
 import com.cinemaTicket.seat.seatStatus.SeatStatus;
 import com.cinemaTicket.seat.seatStatus.SeatStatusRepository;
 import com.cinemaTicket.user.User;
@@ -21,14 +25,21 @@ public class DatabaseLoader implements ApplicationRunner {
     private final SeatStatusRepository seatStatusRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final FilmRepository filmRepository;
+    private final CinemaRoomRepository cinemaRoomRepository;
 
     @Autowired
     public DatabaseLoader(SeatStatusRepository seatStatusRepository,
                           UserRepository userRepository,
-                          RoleRepository roleRepository) {
+                          RoleRepository roleRepository,
+                          FilmRepository filmRepository,
+                          CinemaRoomRepository cinemaRoomRepository
+    ) {
         this.seatStatusRepository = seatStatusRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.filmRepository = filmRepository;
+        this.cinemaRoomRepository = cinemaRoomRepository;
     }
 
     @Override
@@ -36,16 +47,32 @@ public class DatabaseLoader implements ApplicationRunner {
         SeatStatus st1 = new SeatStatus("FREE");
         SeatStatus st2 = new SeatStatus("BOOKED");
         SeatStatus st3 = new SeatStatus("SOLD");
-
         seatStatusRepository.save(st1);
         seatStatusRepository.save(st2);
         seatStatusRepository.save(st3);
 
-        Date date = new Date(2017, 6, 100, 13, 59, 00);
+        Date date1 = new Date(2017,6, 25);
+        Film film1 = new Film("agent 008", "stolone", 100500, date1,  14, "new awesome action!",55, 4 );
+        Film film2 = new Film("divergent", "jack black", 80000200, new Date(2016, 5, 10),  14, "for young people",40, 6 );
+        Film film3 = new Film("defenders", "mixalkov", 30040, new Date(2015, 7, 9),  16, "not bad",30, 3 );
+
+        filmRepository.save(film1);
+        filmRepository.save(film2);
+        filmRepository.save(film3);
+
+        //////////////////////////////////////////////
+
+        CinemaRoom cinemaRoom1 = new CinemaRoom("green", 15, 10);
+        CinemaRoom cinemaRoom2 = new CinemaRoom("red",15, 10);
+        CinemaRoom cinemaRoom3 = new CinemaRoom("blue",15, 10);
+
+        cinemaRoomRepository.save(cinemaRoom1);
+        cinemaRoomRepository.save(cinemaRoom2);
+        cinemaRoomRepository.save(cinemaRoom3);
+
 
 
         User user1 = new User("bigboss","1234", "main@tut.by", "5340645","nick");
-        //User user2 = new User("bigboss","1234", "main@tut.by", "5340645","nick");
         User user3 = new User("zhenyaZap","letmein", "zap@tut.by", "3450236", "evgen");
         User user4 = new User("mosya","password", "helg@tut.by", "5972341238", "olga");
 

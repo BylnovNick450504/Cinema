@@ -3,12 +3,12 @@ package com.cinemaTicket.show;
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.Film;
 import com.cinemaTicket.room.CinemaRoom;
+import com.cinemaTicket.ticket.Ticket;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cinema_show")
@@ -24,6 +24,9 @@ public class CinemaShow extends BaseEntity {
     private Film film;
 
     private Integer status;
+
+    @OneToMany(mappedBy = "cinemaShow", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
 
     public CinemaShow() {
     }
@@ -66,7 +69,20 @@ public class CinemaShow extends BaseEntity {
     }
 
     public void update(CinemaShow cinemaShow) {
-        showDate = cinemaShow.getShowDate();
-        status = cinemaShow.getStatus();
+        setShowDate(cinemaShow.getShowDate());
+        setStatus(cinemaShow.getStatus());
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void addTicket(Ticket ticketItem) {
+        ticketItem.setCinemaShow(this);
+        tickets.add(ticketItem);
     }
 }
