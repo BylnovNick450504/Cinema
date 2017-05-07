@@ -2,7 +2,6 @@ package com.cinemaTicket.show;
 
 
 import com.cinemaTicket.core.CustomSoloRequest;
-import com.cinemaTicket.core.ResponseStatus;
 import org.springframework.http.ResponseEntity;
 
 public interface CinemaShowService {

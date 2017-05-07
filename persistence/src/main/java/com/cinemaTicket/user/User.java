@@ -20,7 +20,6 @@ public class User extends BaseEntity {
     private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
     private String username;
     private String email;
-    private String phoneNumber;
     private String name;
     private String password;
 
@@ -47,12 +46,10 @@ public class User extends BaseEntity {
     public User(String username,
                 String password,
                 String email,
-                String phoneNumber,
                 String name) {
         this.username = username;
         setPassword(password);
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.name = name;
     }
 
@@ -69,7 +66,7 @@ public class User extends BaseEntity {
         return password;
     }
 
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = PASSWORD_ENCODER.encode(password);
     }
 
@@ -79,14 +76,6 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public List<FilmComment> getFilmComments() {
@@ -122,7 +111,7 @@ public class User extends BaseEntity {
         cinemaCommentItem.setUser(this);
     }
 
-    public void addTicket(Ticket ticketItem) {
+    void addTicket(Ticket ticketItem) {
         tickets.add(ticketItem);
         ticketItem.setUser(this);
     }

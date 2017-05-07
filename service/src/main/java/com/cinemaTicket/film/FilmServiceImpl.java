@@ -7,8 +7,6 @@ import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.comment.FilmCommentRepository;
 import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.film.genre.GenreRepository;
-import com.cinemaTicket.film.info.FilmInfo;
-import com.cinemaTicket.film.info.FilmInfoRepository;
 import com.cinemaTicket.film.mock.FilmFactory;
 import com.cinemaTicket.film.mock.MockFilm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +22,12 @@ public class FilmServiceImpl implements FilmService {
 
     private final GenreRepository genreRepository;
     private final FilmRepository filmRepository;
-    private final FilmInfoRepository filmInfoRepository;
     private final FilmCommentRepository filmCommentRepository;
 
     @Autowired
-    public FilmServiceImpl(GenreRepository genreRepository, FilmRepository filmRepository, FilmInfoRepository filmInfoRepository, FilmCommentRepository filmCommentRepository) {
+    public FilmServiceImpl(GenreRepository genreRepository, FilmRepository filmRepository, FilmCommentRepository filmCommentRepository) {
         this.genreRepository = genreRepository;
         this.filmRepository = filmRepository;
-        this.filmInfoRepository = filmInfoRepository;
         this.filmCommentRepository = filmCommentRepository;
     }
 
@@ -51,25 +47,6 @@ public class FilmServiceImpl implements FilmService {
             genreList.add(genre);
         }
         film.setGenres(genreList);
-        filmRepository.save(film);
-        return new ResponseStatus(true);
-    }
-
-    @Override
-    public ResponseStatus addInfo(Long id, CustomMonoRequest infoIds) {
-        Film film = filmRepository.findOne(id);
-        if (film == null) {
-            return new ResponseStatus();
-        }
-        List<FilmInfo> filmInfoList = new ArrayList<>();
-        for (Long filmInfoId : infoIds.getIds()) {
-            FilmInfo filmInfo = filmInfoRepository.findOne(filmInfoId);
-            if (filmInfo == null) {
-                return new ResponseStatus();
-            }
-            filmInfoList.add(filmInfo);
-        }
-        film.setFilmInfo(filmInfoList);
         filmRepository.save(film);
         return new ResponseStatus(true);
     }

@@ -1,10 +1,8 @@
 package com.cinemaTicket.room;
 
 import com.cinemaTicket.core.BaseEntity;
-import com.cinemaTicket.room.roomStatus.RoomStatus;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.show.CinemaShow;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -17,10 +15,7 @@ public class CinemaRoom extends BaseEntity {
     private String name;
     private Integer row;
     private Integer col;
-
-    @OneToOne
-    @JoinColumn(name = "room_status_id")
-    private RoomStatus roomStatus;
+    private Integer roomStatus;
 
     @OneToMany(mappedBy = "cinemaRoom", cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -50,11 +45,15 @@ public class CinemaRoom extends BaseEntity {
         this.name = name;
     }
 
-    public RoomStatus getRoomStatus() {
+    public void setCol(Integer col) {
+        this.col = col;
+    }
+
+    public Integer getRoomStatus() {
         return roomStatus;
     }
 
-    public void setRoomStatus(RoomStatus roomStatus) {
+    public void setRoomStatus(Integer roomStatus) {
         this.roomStatus = roomStatus;
     }
 
@@ -66,7 +65,7 @@ public class CinemaRoom extends BaseEntity {
         this.seats = seats;
     }
 
-    public void addSeat(Seat seatItem) {
+    void addSeat(Seat seatItem) {
         seatItem.setCinemaRoom(this);
         seats.add(seatItem);
     }

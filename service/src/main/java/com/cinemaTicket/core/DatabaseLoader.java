@@ -6,8 +6,6 @@ import com.cinemaTicket.film.Film;
 import com.cinemaTicket.film.FilmRepository;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.room.CinemaRoomRepository;
-import com.cinemaTicket.seat.seatStatus.SeatStatus;
-import com.cinemaTicket.seat.seatStatus.SeatStatusRepository;
 import com.cinemaTicket.user.User;
 import com.cinemaTicket.user.UserRepository;
 import com.cinemaTicket.user.role.Role;
@@ -22,20 +20,18 @@ import java.util.Date;
 @Component
 public class DatabaseLoader implements ApplicationRunner {
 
-    private final SeatStatusRepository seatStatusRepository;
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final FilmRepository filmRepository;
     private final CinemaRoomRepository cinemaRoomRepository;
 
     @Autowired
-    public DatabaseLoader(SeatStatusRepository seatStatusRepository,
-                          UserRepository userRepository,
+    public DatabaseLoader(UserRepository userRepository,
                           RoleRepository roleRepository,
                           FilmRepository filmRepository,
                           CinemaRoomRepository cinemaRoomRepository
     ) {
-        this.seatStatusRepository = seatStatusRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.filmRepository = filmRepository;
@@ -44,12 +40,6 @@ public class DatabaseLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        SeatStatus st1 = new SeatStatus("FREE");
-        SeatStatus st2 = new SeatStatus("BOOKED");
-        SeatStatus st3 = new SeatStatus("SOLD");
-        seatStatusRepository.save(st1);
-        seatStatusRepository.save(st2);
-        seatStatusRepository.save(st3);
 
         Date date1 = new Date(2017,6, 25);
         Film film1 = new Film("agent 008", "stolone", 100500, date1,  14, "new awesome action!",55, 4 );
@@ -72,26 +62,24 @@ public class DatabaseLoader implements ApplicationRunner {
 
 
 
-        User user1 = new User("bigboss","1234", "main@tut.by", "5340645","nick");
-        User user3 = new User("zhenyaZap","letmein", "zap@tut.by", "3450236", "evgen");
-        User user4 = new User("mosya","password", "helg@tut.by", "5972341238", "olga");
+        User user1 = new User("bigboss","1234", "main@tut.by","nick");
+        User user3 = new User("zhenyaZap","letmein", "zap@tut.by", "evgen");
+        User user4 = new User("mosya","password", "helg@tut.by", "olga");
 
         Role role1 = new Role("ROLE_USER");
         Role role2 = new Role("ROLE_ADMIN");
+
+//        role1.addUser(user1);
+//        role1.addUser(user4);
+//        role2.addUser(user3);
         roleRepository.save(role1);
         roleRepository.save(role2);
-
-
         user1.addRole(role1);
-        //user2.addRole(role2);
         user3.addRole(role2);
         user4.addRole(role1);
 
         userRepository.save(user1);
-        //userRepository.save(user2);
         userRepository.save(user3);
         userRepository.save(user4);
-
-
     }
 }

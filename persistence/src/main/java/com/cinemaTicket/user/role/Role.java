@@ -2,8 +2,6 @@ package com.cinemaTicket.user.role;
 
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.user.User;
-
-import javax.jws.soap.InitParam;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -17,7 +15,7 @@ public class Role extends BaseEntity {
 
     private String role;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
 
     public Role() {
@@ -43,5 +41,8 @@ public class Role extends BaseEntity {
         this.users = users;
     }
 
-
+    public void addUser(User userItem) {
+        userItem.addRole(this);
+        users.add(userItem);
+    }
 }

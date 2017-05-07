@@ -1,10 +1,8 @@
 package com.cinemaTicket.film;
 
-
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.genre.Genre;
-import com.cinemaTicket.film.info.FilmInfo;
 import com.cinemaTicket.show.CinemaShow;
 
 import javax.persistence.*;
@@ -17,20 +15,17 @@ import java.util.List;
 public class Film extends BaseEntity {
     private String name;
     private String producer;
-    private double budget;
+    private Double budget;
     private Date premiereDate;
     private String description;
-    private int age;
-    private int rating;
-    private int recommendTicketCost;
+    private Integer age;
+    private Integer rating;
+    private Integer recommendTicketCost;
+    private Integer filmStatus;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "film_genre")
     private List<Genre> genres = new ArrayList<>();
-
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "film_info")
-    private List<FilmInfo> filmInfo = new ArrayList<>();
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
     private List<FilmComment> filmComments = new ArrayList<>();
@@ -119,14 +114,6 @@ public class Film extends BaseEntity {
         this.genres = genres;
     }
 
-    public List<FilmInfo> getFilmInfo() {
-        return filmInfo;
-    }
-
-    public void setFilmInfo(List<FilmInfo> filmInfo) {
-        this.filmInfo = filmInfo;
-    }
-
     public List<FilmComment> getFilmComments() {
         return filmComments;
     }
@@ -141,10 +128,6 @@ public class Film extends BaseEntity {
 
     public void addComment(FilmComment filmCommentItem) {
         filmComments.add(filmCommentItem);
-    }
-
-    public void addInfo(FilmInfo infoItem) {
-        filmInfo.add(infoItem);
     }
 
     public String getDescription() {
@@ -178,5 +161,14 @@ public class Film extends BaseEntity {
     public void setCinemaShows(List<CinemaShow> cinemaShows) {
         this.cinemaShows = cinemaShows;
     }
+
+    public Integer getFilmStatus() {
+        return filmStatus;
+    }
+
+    public void setFilmStatus(Integer filmStatus) {
+        this.filmStatus = filmStatus;
+    }
+
 }
 

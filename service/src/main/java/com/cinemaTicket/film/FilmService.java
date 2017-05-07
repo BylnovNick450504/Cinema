@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface FilmService {
     ResponseStatus addGenres(Long id, CustomMonoRequest genres);
-    ResponseStatus addInfo(Long id, CustomMonoRequest info);
     ResponseStatus addComment(Long id, CustomSoloRequest comment);
     ResponseEntity<?> createFilm(MockFilm mockFilm);
     ResponseEntity<?> updateFilm(Long id, MockFilm mockFilm);
