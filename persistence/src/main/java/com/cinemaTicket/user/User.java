@@ -66,7 +66,7 @@ public class User extends BaseEntity {
         return password;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = PASSWORD_ENCODER.encode(password);
     }
 
@@ -103,6 +103,7 @@ public class User extends BaseEntity {
     }
 
     public void addFilmComment(FilmComment filmCommentItem) {
+        filmCommentItem.setUser(this);
         filmComments.add(filmCommentItem);
     }
 

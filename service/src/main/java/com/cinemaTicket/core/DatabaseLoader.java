@@ -65,6 +65,7 @@ public class DatabaseLoader implements ApplicationRunner {
         User user1 = new User("bigboss","1234", "main@tut.by","nick");
         User user3 = new User("zhenyaZap","letmein", "zap@tut.by", "evgen");
         User user4 = new User("mosya","password", "helg@tut.by", "olga");
+        User user5 = new User("qwerty","1234", "helg@tut.by", "olga");
 
         Role role1 = new Role("ROLE_USER");
         Role role2 = new Role("ROLE_ADMIN");
@@ -77,9 +78,11 @@ public class DatabaseLoader implements ApplicationRunner {
         user1.addRole(role1);
         user3.addRole(role2);
         user4.addRole(role1);
+        user5.addRole(role1);
 
         userRepository.save(user1);
         userRepository.save(user3);
         userRepository.save(user4);
+        userRepository.save(user5);
     }
 }

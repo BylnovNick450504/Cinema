@@ -87,7 +87,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
 
     @Override
     public ResponseEntity<?> createAndInitCinemaShow(CinemaShowInfo cinemaShowInfo) {
-
+        final int FREE = 0;
         Film filmItem = filmRepository.findOne(cinemaShowInfo.getFilmId());
         CinemaRoom cinemaRoomItem = cinemaRoomRepository.findOne(cinemaShowInfo.getCinemaRoomId());
         if (filmItem == null || cinemaRoomItem == null) {
@@ -98,6 +98,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         for (Seat seat : cinemaRoomItem.getSeats()) {
             Ticket ticket = new Ticket();
             ticket.setSeat(seat);
+            ticket.setStatus(FREE);
             cinemaShow.addTicket(ticket);
         }
 
