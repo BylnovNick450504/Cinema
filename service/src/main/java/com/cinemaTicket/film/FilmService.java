@@ -5,13 +5,14 @@ import com.cinemaTicket.core.CustomMonoRequest;
 import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
 import com.cinemaTicket.film.mock.MockFilm;
+import com.cinemaTicket.film.mock.MockFilmList;
 import org.springframework.http.ResponseEntity;
 
 public interface FilmService {
     ResponseStatus addGenres(Long id, CustomMonoRequest genres);
     ResponseStatus addComment(Long id, CustomSoloRequest comment);
-    ResponseEntity<?> createFilm(MockFilm mockFilm);
-    ResponseEntity<?> updateFilm(Long id, MockFilm mockFilm);
+    ResponseEntity<?> createFilm(Film film);
+    ResponseEntity<?> updateFilm(Long id, Film film);
     ResponseEntity<?> deleteFilm(Long id);
-    ResponseEntity<?> getByName(String name);
+    MockFilmList getByName(String name);
 }

@@ -68,15 +68,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
+                        "/**/*.js",
+                        "/**/*.jpg",
+                        "/**/*.txt"
                 ).permitAll()
+                .antMatchers("/upload-dir/**").permitAll()
+                .antMatchers("/1.txt").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/auth").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/films/find").permitAll()
                 .antMatchers(HttpMethod.POST, "/createUser").permitAll()
                 .antMatchers(HttpMethod.POST, "/films").hasRole("ADMIN")
                 //.antMatchers("/users").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/**").permitAll();
+                //.anyRequest().authenticated();
 
         // Custom JWT based security filter
         httpSecurity

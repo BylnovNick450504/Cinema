@@ -7,8 +7,8 @@ import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.comment.FilmCommentRepository;
 import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.film.genre.GenreRepository;
-import com.cinemaTicket.film.mock.FilmFactory;
 import com.cinemaTicket.film.mock.MockFilm;
+import com.cinemaTicket.film.mock.MockFilmList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,19 +67,17 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public ResponseEntity<?> createFilm(MockFilm mockFilm) {
-        Film film = FilmFactory.create(mockFilm);
+    public ResponseEntity<?> createFilm(Film film) {
         film = filmRepository.save(film);
         return new ResponseEntity<>(film, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> updateFilm(Long id, MockFilm mockFilm) {
+    public ResponseEntity<?> updateFilm(Long id, Film newFilm) {
         Film oldFilm = filmRepository.findOne(id);
         if (oldFilm == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Film newFilm = FilmFactory.create(mockFilm);
         oldFilm.updateFilm(newFilm);
         filmRepository.save(oldFilm);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -89,5 +87,16 @@ public class FilmServiceImpl implements FilmService {
     public ResponseEntity<?> deleteFilm(Long id) {
         filmRepository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public MockFilmList getByName(String name) {
+        List<Film> filmList = filmRepository.findByName(name);
+        List<MockFilm> mockFilms = new ArrayList<>();
+        for (Film film : filmList) {
+            MockFilm mockFilm = new MockFilm(film);
+            mockFilms.add(mockFilm);
+        }
+        return new MockFilmList(mockFilms);
     }
 }
