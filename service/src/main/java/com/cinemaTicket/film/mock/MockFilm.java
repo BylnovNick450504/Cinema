@@ -11,6 +11,7 @@ public class MockFilm {
     private int age;
     private int rating;
     private int recommendTicketCost;
+    private String picturePath;
 
     public MockFilm() {}
 
@@ -21,7 +22,8 @@ public class MockFilm {
                     String description,
                     int age,
                     int rating,
-                    int recommendTicketCost
+                    int recommendTicketCost,
+                    String picturePath
 
     ) {
         this.name = name;
@@ -32,6 +34,7 @@ public class MockFilm {
         this.age = age;
         this.rating = rating;
         this.recommendTicketCost = recommendTicketCost;
+        this.picturePath = picturePath;
     }
 
     public String getName() {
@@ -64,5 +67,9 @@ public class MockFilm {
 
     public int getRecommendTicketCost() {
         return recommendTicketCost;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
     }
 }

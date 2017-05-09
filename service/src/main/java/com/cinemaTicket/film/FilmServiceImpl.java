@@ -82,7 +82,7 @@ public class FilmServiceImpl implements FilmService {
         Film newFilm = FilmFactory.create(mockFilm);
         oldFilm.updateFilm(newFilm);
         filmRepository.save(oldFilm);
-        return new ResponseEntity<>(oldFilm, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override

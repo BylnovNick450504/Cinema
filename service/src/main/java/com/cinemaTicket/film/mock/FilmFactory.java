@@ -15,7 +15,8 @@ public final class FilmFactory {
                 mockFilm.getAge(),
                 mockFilm.getDescription(),
                 mockFilm.getRating(),
-                mockFilm.getRecommendTicketCost()
+                mockFilm.getRecommendTicketCost(),
+                mockFilm.getPicturePath()
         );
     }
 }

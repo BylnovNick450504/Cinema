@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "film")
 public class Film extends BaseEntity {
+
     private String name;
     private String producer;
     private Double budget;
@@ -22,6 +23,7 @@ public class Film extends BaseEntity {
     private Integer rating;
     private Integer recommendTicketCost;
     private Integer filmStatus;
+    private String picturePath;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "film_genre")
@@ -43,7 +45,8 @@ public class Film extends BaseEntity {
                 int age,
                 String description,
                 int rating,
-                int recommendTicketCost
+                int recommendTicketCost,
+                String picturePath
     ) {
         this.name = name;
         this.producer = producer;
@@ -53,6 +56,7 @@ public class Film extends BaseEntity {
         this.description = description;
         this.rating = rating;
         this.recommendTicketCost = recommendTicketCost;
+        this.picturePath = picturePath;
     }
 
     public void updateFilm(Film film) {
@@ -170,5 +174,28 @@ public class Film extends BaseEntity {
         this.filmStatus = filmStatus;
     }
 
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public void setRecommendTicketCost(Integer recommendTicketCost) {
+        this.recommendTicketCost = recommendTicketCost;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
 }
 
