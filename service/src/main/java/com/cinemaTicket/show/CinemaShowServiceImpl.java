@@ -7,12 +7,19 @@ import com.cinemaTicket.film.FilmRepository;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.room.CinemaRoomRepository;
 import com.cinemaTicket.seat.Seat;
+import com.cinemaTicket.show.mock.MockCinemaShow;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.ticket.TicketRepository;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class CinemaShowServiceImpl implements CinemaShowService {
@@ -21,6 +28,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
     private final CinemaRoomRepository cinemaRoomRepository;
     private final CinemaShowRepository cinemaShowRepository;
     private final TicketRepository ticketRepository;
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     @Autowired
     public CinemaShowServiceImpl(FilmRepository filmRepository,
@@ -108,5 +116,25 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         cinemaShowRepository.save(cinemaShow);
 
         return new ResponseEntity<>(new ResponseStatus(true), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> getCinemaShowByFilm(Long filmId) {
+        Film film = filmRepository.findOne(filmId);
+        logger.info("Film Id = " + filmId);
+        Date currentDate = new Date();
+        List<MockCinemaShow> mockCinemaShowList = new ArrayList<>();
+        if (film == null) {
+            return new ResponseEntity<>(mockCinemaShowList, HttpStatus.CREATED);
+        }
+        List<CinemaShow> cinemaShowList = cinemaShowRepository.findByFilm(film);
+        logger.info("Show " + cinemaShowList.size());
+        for (CinemaShow cinemaShow : cinemaShowList) {
+            if(cinemaShow.getShowDate().after(currentDate)) {
+                MockCinemaShow mockCinemaShow = new MockCinemaShow(cinemaShow);
+                mockCinemaShowList.add(mockCinemaShow);
+            }
+        }
+        return new ResponseEntity<>(mockCinemaShowList, HttpStatus.CREATED);
     }
 }

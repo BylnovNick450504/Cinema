@@ -51,4 +51,9 @@ public class CinemaShowController {
     public ResponseEntity<?> createAndInitCinemaRoom(@RequestBody CinemaShowInfo cinemaShowInfo) {
         return cinemaShowService.createAndInitCinemaShow(cinemaShowInfo);
     }
+
+    @RequestMapping(value = "/show/getByFilm", method = RequestMethod.GET)
+    public ResponseEntity<?> getCinemaShowByFilm(@RequestParam(name = "filmId") Long filmId) {
+        return cinemaShowService.getCinemaShowByFilm(filmId);
+    }
 }
