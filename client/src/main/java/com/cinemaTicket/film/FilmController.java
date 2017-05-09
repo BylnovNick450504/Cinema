@@ -39,4 +39,10 @@ public class FilmController {
     public MockFilmList getByName(@RequestParam("Name") String name) {
         return filmService.getByName(name);
     }
+
+    @RequestMapping(value = "/films/findAll", method = RequestMethod.GET)
+    public MockFilmList getAllFilms() {
+        return filmService.getAllFilms();
+    }
+
 }

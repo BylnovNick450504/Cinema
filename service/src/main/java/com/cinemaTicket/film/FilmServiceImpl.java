@@ -99,4 +99,15 @@ public class FilmServiceImpl implements FilmService {
         }
         return new MockFilmList(mockFilms);
     }
+
+    @Override
+    public MockFilmList getAllFilms() {
+        Iterable<Film> filmList = filmRepository.findAll();
+        List<MockFilm> mockFilms = new ArrayList<>();
+        for (Film film : filmList) {
+            MockFilm mockFilm = new MockFilm(film);
+            mockFilms.add(mockFilm);
+        }
+        return new MockFilmList(mockFilms);
+    }
 }

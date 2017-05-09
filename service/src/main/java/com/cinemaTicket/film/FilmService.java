@@ -15,4 +15,5 @@ public interface FilmService {
     ResponseEntity<?> updateFilm(Long id, Film film);
     ResponseEntity<?> deleteFilm(Long id);
     MockFilmList getByName(String name);
+    MockFilmList getAllFilms();
 }
