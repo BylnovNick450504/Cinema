@@ -1,8 +1,11 @@
 package com.cinemaTicket.ticket.mockTicket;
 
 
+import com.cinemaTicket.core.DatePrinter;
+import com.cinemaTicket.ticket.Ticket;
+
 public class MockTicket {
-    private Long ticketId;
+    private Long id;
     private String filmName;
     private String showDayMonthYear;
     private String showHourMin;
@@ -13,7 +16,7 @@ public class MockTicket {
     public MockTicket() {
     }
 
-    public MockTicket(Long ticketId,
+    public MockTicket(Long id,
                       String filmName,
                       String showDayMonthYear,
                       String showHourMin,
@@ -21,7 +24,7 @@ public class MockTicket {
                       int row,
                       int number
     ) {
-        this.ticketId = ticketId;
+        this.id = id;
         this.filmName = filmName;
         this.showDayMonthYear = showDayMonthYear;
         this.showHourMin = showHourMin;
@@ -30,8 +33,18 @@ public class MockTicket {
         this.number = number;
     }
 
-    public Long getTicketId() {
-        return ticketId;
+    public MockTicket(Ticket ticket) {
+        this.id = ticket.getId();
+        this.filmName = ticket.getCinemaShow().getFilm().getName();
+        this.showDayMonthYear = DatePrinter.printDayMonthYear(ticket.getCinemaShow().getShowDate());
+        this.showHourMin = DatePrinter.printHourMin(ticket.getCinemaShow().getShowDate());
+        this.roomName = ticket.getSeat().getCinemaRoom().getName();
+        this.row = ticket.getSeat().getRow();
+        this.number = ticket.getSeat().getNumber();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFilmName() {
