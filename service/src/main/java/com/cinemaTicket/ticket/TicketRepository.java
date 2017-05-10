@@ -9,5 +9,5 @@ import java.util.List;
 public interface TicketRepository extends CrudRepository<Ticket, Long> {
     Ticket findBySeat(Seat seat);
     Ticket findBySeatAndCinemaShow(Seat seat, CinemaShow cinemaShow);
-    List<Ticket> findByUserIsNull();
+    List<Ticket> findByUserIsNullAndCinemaShow(CinemaShow cinemaShow);
 }

@@ -76,7 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/films/findAll").permitAll()
                 .antMatchers(HttpMethod.GET, "/films/findByGenre").permitAll()
                 .antMatchers(HttpMethod.GET, "/films/findByAge").permitAll()
-                .antMatchers(HttpMethod.GET, "/show/getByFilm").permitAll()
+                .antMatchers(HttpMethod.GET, "/show/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/ticket/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/createUser").permitAll()
                 .antMatchers(HttpMethod.POST, "/films").hasRole("ADMIN")
                 .anyRequest().authenticated();
