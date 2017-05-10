@@ -8,20 +8,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "genre")
 public class Genre extends BaseEntity {
-    private String genre;
+    private String genreName;
 
     public Genre() {
     }
 
-    public Genre(String genre) {
-        this.genre = genre;
+    public Genre(String genreName) {
+        this.genreName = genreName;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getGenreName() {
+        return genreName;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenreName(String genreName) {
+        this.genreName = genreName;
     }
 }

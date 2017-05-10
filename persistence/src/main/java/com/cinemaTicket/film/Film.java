@@ -24,6 +24,7 @@ public class Film extends BaseEntity {
     private Integer recommendTicketCost;
     private Integer filmStatus;
     private String picturePath;
+    private Integer duration;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "film_genre")
@@ -46,7 +47,8 @@ public class Film extends BaseEntity {
                 String description,
                 int rating,
                 int recommendTicketCost,
-                String picturePath
+                String picturePath,
+                Integer duration
     ) {
         this.name = name;
         this.producer = producer;
@@ -57,6 +59,7 @@ public class Film extends BaseEntity {
         this.rating = rating;
         this.recommendTicketCost = recommendTicketCost;
         this.picturePath = picturePath;
+        this.duration = duration;
     }
 
     public void updateFilm(Film film) {
@@ -68,6 +71,8 @@ public class Film extends BaseEntity {
         this.description = film.getDescription();
         this.rating = film.getRating();
         this.recommendTicketCost = film.getRecommendTicketCost();
+        this.picturePath = film.getPicturePath();
+        this.duration = film.getDuration();
     }
 
     public String getName() {
@@ -196,6 +201,14 @@ public class Film extends BaseEntity {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 }
 

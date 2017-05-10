@@ -137,4 +137,6 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         }
         return new ResponseEntity<>(mockCinemaShowList, HttpStatus.CREATED);
     }
+
+
 }

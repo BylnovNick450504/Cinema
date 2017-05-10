@@ -45,4 +45,13 @@ public class FilmController {
         return filmService.getAllFilms();
     }
 
+    @RequestMapping(value = "/films/findByAge", method = RequestMethod.GET)
+    public ResponseEntity<?> getByAgePlus(@RequestParam("Age") int age) {
+        return filmService.getByAgePlus(age);
+    }
+
+    @RequestMapping(value = "/films/findByGenre", method = RequestMethod.GET)
+    public ResponseEntity<?> getByGenre(@RequestParam("Genre") String genre) {
+        return filmService.getByGenre(genre);
+    }
 }
