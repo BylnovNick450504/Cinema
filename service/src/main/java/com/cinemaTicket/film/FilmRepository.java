@@ -11,5 +11,5 @@ public interface FilmRepository extends PagingAndSortingRepository<Film, Long> {
     List<Film> findByName(@Param("name") String name);
     List<Film> findByPremiereDate(@Param("premiereDate") Date date);
     List<Film> findByGenres(Genre genre);
-    List<Film> findByAgeGreaterThan(int age);
+    List<Film> findByAgeGreaterThanEqual(int age);
 }

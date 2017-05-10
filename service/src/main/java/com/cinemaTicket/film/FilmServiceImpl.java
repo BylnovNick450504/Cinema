@@ -116,7 +116,7 @@ public class FilmServiceImpl implements FilmService {
         Genre currentGenre = genreRepository.findByGenreName(genre);
         List<MockFilm> mockFilms = new ArrayList<>();
         if (currentGenre == null) {
-            return new ResponseEntity<>(mockFilms, HttpStatus.FOUND);
+            return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
         }
         List<Film> filmList = filmRepository.findByGenres(currentGenre);
 
@@ -124,17 +124,17 @@ public class FilmServiceImpl implements FilmService {
             MockFilm mockFilm = new MockFilm(film);
             mockFilms.add(mockFilm);
         }
-        return new ResponseEntity<>(mockFilms, HttpStatus.FOUND);
+        return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> getByAgePlus(int age) {
-        List<Film> filmList = filmRepository.findByAgeGreaterThan(age);
+        List<Film> filmList = filmRepository.findByAgeGreaterThanEqual(age);
         List<MockFilm> mockFilms = new ArrayList<>();
         for (Film film : filmList) {
             MockFilm mockFilm = new MockFilm(film);
             mockFilms.add(mockFilm);
         }
-        return new ResponseEntity<>(mockFilms, HttpStatus.FOUND);
+        return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
     }
 }

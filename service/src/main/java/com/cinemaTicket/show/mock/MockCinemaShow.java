@@ -4,6 +4,7 @@ import com.cinemaTicket.core.DatePrinter;
 import com.cinemaTicket.show.CinemaShow;
 
 public class MockCinemaShow {
+    private Long id;
     private String showDayMonthYear;
     private String showHourMin;
     private String filmName;
@@ -11,13 +12,15 @@ public class MockCinemaShow {
     public MockCinemaShow() {
     }
 
-    public MockCinemaShow(String showDayMonthYear, String showHourMin, String filmName) {
+    public MockCinemaShow(String showDayMonthYear, String showHourMin, String filmName, Long id) {
         this.showDayMonthYear = showDayMonthYear;
         this.showHourMin = showHourMin;
         this.filmName = filmName;
+        this.id = id;
     }
 
     public MockCinemaShow(CinemaShow cinemaShow) {
+        this.id = cinemaShow.getId();
         this.filmName = cinemaShow.getFilm().getName();
         this.showDayMonthYear = DatePrinter.printDayMonthYear(cinemaShow.getShowDate());
         this.showHourMin = DatePrinter.printHourMin(cinemaShow.getShowDate());
@@ -33,5 +36,9 @@ public class MockCinemaShow {
 
     public String getFilmName() {
         return filmName;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
