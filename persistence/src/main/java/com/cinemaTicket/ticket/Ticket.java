@@ -24,13 +24,13 @@ public class Ticket extends BaseEntity {
     @JoinColumn(name = "person_id")
     private User user;
 
-    private Integer status;
+    private TicketStatus status;
 
     public Ticket() {
     }
 
-    public Ticket(Integer status) {
-        this.status = status;
+    public Ticket(CinemaShow cinemaShow) {
+        this.cinemaShow = cinemaShow;
     }
 
     public CinemaShow getCinemaShow() {
@@ -57,11 +57,11 @@ public class Ticket extends BaseEntity {
         this.user = user;
     }
 
-    public Integer getStatus() {
+    public TicketStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(TicketStatus status) {
         this.status = status;
     }
 }

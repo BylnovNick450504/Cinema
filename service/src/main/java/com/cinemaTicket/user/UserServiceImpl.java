@@ -1,6 +1,7 @@
 package com.cinemaTicket.user;
 
 import com.cinemaTicket.cinema.CinemaComment;
+import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.seat.SeatRepository;
@@ -135,6 +136,25 @@ public class UserServiceImpl implements UserService {
         user.addCinemaComment(cinemaComment);
         userRepository.save(user);
         return new ResponseEntity<>(new ResponseStatus(true, "cinemaComment created"),
+                HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> orderTicket(String userName, CustomSoloRequest ticketId) {
+        Ticket ticket = ticketRepository.findOne(ticketId.getId());
+        if (ticket == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no ticket"), HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userRepository.findByUsername(userName);
+        if (user == null) {
+            return new ResponseEntity<>(new ResponseStatus(false,"no user"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        user.addTicket(ticket);
+        userRepository.save(user);
+        return new ResponseEntity<>(new ResponseStatus(true, "ticket ordered"),
                 HttpStatus.CREATED);
     }
 }

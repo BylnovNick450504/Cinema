@@ -1,6 +1,5 @@
 package com.cinemaTicket.ticket.mockTicket;
 
-
 import com.cinemaTicket.core.DatePrinter;
 import com.cinemaTicket.ticket.Ticket;
 
@@ -12,6 +11,7 @@ public class MockTicket {
     private String roomName;
     private int row;
     private int number;
+    private String status;
 
     public MockTicket() {
     }
@@ -22,7 +22,8 @@ public class MockTicket {
                       String showHourMin,
                       String roomName,
                       int row,
-                      int number
+                      int number,
+                      String status
     ) {
         this.id = id;
         this.filmName = filmName;
@@ -31,6 +32,7 @@ public class MockTicket {
         this.roomName = roomName;
         this.row = row;
         this.number = number;
+        this.status = status;
     }
 
     public MockTicket(Ticket ticket) {
@@ -41,6 +43,7 @@ public class MockTicket {
         this.roomName = ticket.getSeat().getCinemaRoom().getName();
         this.row = ticket.getSeat().getRow();
         this.number = ticket.getSeat().getNumber();
+        this.status = ticket.getStatus().toString();
     }
 
     public Long getId() {
@@ -69,5 +72,9 @@ public class MockTicket {
 
     public int getNumber() {
         return number;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

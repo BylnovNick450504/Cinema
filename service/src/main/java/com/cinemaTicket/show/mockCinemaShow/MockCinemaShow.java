@@ -1,4 +1,4 @@
-package com.cinemaTicket.show.mock;
+package com.cinemaTicket.show.mockCinemaShow;
 
 import com.cinemaTicket.core.DatePrinter;
 import com.cinemaTicket.show.CinemaShow;

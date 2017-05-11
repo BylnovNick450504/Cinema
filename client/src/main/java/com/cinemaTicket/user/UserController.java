@@ -1,6 +1,7 @@
 package com.cinemaTicket.user;
 
 import com.cinemaTicket.cinema.CinemaComment;
+import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.security.JwtTokenUtil;
 import com.cinemaTicket.security.custom.JwtUser;
 import com.cinemaTicket.ticket.TicketInfo;
@@ -35,9 +36,14 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
+    private String getUserName(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        return jwtTokenUtil.getUsernameFromToken(token);
+    }
+
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     ResponseEntity<?> createUser(@RequestBody  User user) {
-        logger.info("user controlller");
+        logger.info("user controller");
         return userService.createUser(user);
 
     }
@@ -52,22 +58,25 @@ public class UserController {
 
     @RequestMapping(value = "/users/orderTicket", method = RequestMethod.POST)
     ResponseEntity<?> orderTicket(@RequestBody  TicketInfo ticketInfo, HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
+        String username = getUserName(request);
         return userService.orderTicket(username, ticketInfo);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     ResponseEntity<?> editUser(@RequestBody  UserInfo user, HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
+        String username = getUserName(request);
         return userService.editUser(username, user);
     }
 
     @RequestMapping(value = "/users/createCinemaComment", method = RequestMethod.POST)
     ResponseEntity<?> createCinemaComment(@RequestBody CinemaComment cinemaComment, HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
+        String username = getUserName(request);
         return userService.createCinemaComment(username, cinemaComment);
+    }
+
+    @RequestMapping(value = "/users/order", method = RequestMethod.POST)
+    ResponseEntity<?> createCinemaComment(@RequestBody CustomSoloRequest ticketId, HttpServletRequest request) {
+        String username = getUserName(request);
+        return userService.orderTicket(username, ticketId);
     }
 }

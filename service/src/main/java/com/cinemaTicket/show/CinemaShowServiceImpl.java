@@ -7,9 +7,10 @@ import com.cinemaTicket.film.FilmRepository;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.room.CinemaRoomRepository;
 import com.cinemaTicket.seat.Seat;
-import com.cinemaTicket.show.mock.MockCinemaShow;
+import com.cinemaTicket.show.mockCinemaShow.MockCinemaShow;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.ticket.TicketRepository;
+import com.cinemaTicket.ticket.TicketStatus;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,6 @@ public class CinemaShowServiceImpl implements CinemaShowService {
 
     @Override
     public ResponseEntity<?> createAndInitCinemaShow(CinemaShowInfo cinemaShowInfo) {
-        final int FREE = 0;
         Film filmItem = filmRepository.findOne(cinemaShowInfo.getFilmId());
         CinemaRoom cinemaRoomItem = cinemaRoomRepository.findOne(cinemaShowInfo.getCinemaRoomId());
         if (filmItem == null || cinemaRoomItem == null) {
@@ -106,7 +106,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         for (Seat seat : cinemaRoomItem.getSeats()) {
             Ticket ticket = new Ticket();
             ticket.setSeat(seat);
-            ticket.setStatus(FREE);
+            ticket.setStatus(TicketStatus.ACTIVE);
             cinemaShow.addTicket(ticket);
         }
 
