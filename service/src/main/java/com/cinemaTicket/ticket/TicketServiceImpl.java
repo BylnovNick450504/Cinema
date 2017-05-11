@@ -4,6 +4,7 @@ import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.show.CinemaShow;
 import com.cinemaTicket.show.CinemaShowRepository;
 import com.cinemaTicket.ticket.mockTicket.MockTicket;
+import com.cinemaTicket.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +39,4 @@ public class TicketServiceImpl implements TicketService {
         }
         return new ResponseEntity<>(mockTicketList, HttpStatus.CREATED);
     }
-
 }

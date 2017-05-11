@@ -10,6 +10,7 @@ import com.cinemaTicket.show.CinemaShowRepository;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.ticket.TicketInfo;
 import com.cinemaTicket.ticket.TicketRepository;
+import com.cinemaTicket.ticket.mockTicket.MockTicket;
 import com.cinemaTicket.user.role.Role;
 import com.cinemaTicket.user.role.RoleRepository;
 import org.apache.commons.logging.Log;
@@ -18,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,34 +52,34 @@ public class UserServiceImpl implements UserService {
         final int BOOKED = 1;
         User user = userRepository.findByUsername(userName);
         if (user == null) {
-            return new ResponseEntity<>(new ResponseStatus(false,"no user"),
-                                        HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseStatus(false, "no user"),
+                    HttpStatus.BAD_REQUEST);
         }
         Long id = ticketInfo.getShowId();
         CinemaShow cinemaShow = cinemaShowRepository.findOne(ticketInfo.getShowId());
         if (cinemaShow == null) {
-            return new ResponseEntity<>(new ResponseStatus(false,"no show"),
-                                        HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseStatus(false, "no show"),
+                    HttpStatus.BAD_REQUEST);
         }
         Seat seat = seatRepository.findByCinemaRoomAndRowAndNumber(cinemaShow.getCinemaRoom(),
-                                                                   ticketInfo.getRow(),
-                                                                   ticketInfo.getNumber());
+                ticketInfo.getRow(),
+                ticketInfo.getNumber());
         if (seat == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no seat"),
-                                        HttpStatus.BAD_REQUEST);
+                    HttpStatus.BAD_REQUEST);
         }
         Ticket ticket = ticketRepository.findBySeat(seat);
         if (ticket == null) {
-            return new ResponseEntity<>(new ResponseStatus(false,"no ticket"),
+            return new ResponseEntity<>(new ResponseStatus(false, "no ticket"),
                     HttpStatus.BAD_REQUEST);
         }
         if (ticket.getStatus().equals(BOOKED)) {
-            return new ResponseEntity<>(new ResponseStatus(false,"booked"),
+            return new ResponseEntity<>(new ResponseStatus(false, "booked"),
                     HttpStatus.BAD_REQUEST);
         }
 
         if (ticket.getUser() != null) {
-            return new ResponseEntity<>(new ResponseStatus(false,"booked"),
+            return new ResponseEntity<>(new ResponseStatus(false, "booked"),
                     HttpStatus.BAD_REQUEST);
         }
 
@@ -90,19 +94,19 @@ public class UserServiceImpl implements UserService {
         logger.info(user.getUsername());
         if (oldUser != null) {
             return new ResponseEntity<>(new ResponseStatus(false, "name already exist"),
-                                        HttpStatus.BAD_REQUEST);
+                    HttpStatus.BAD_REQUEST);
         }
         String ROLE = "ROLE_USER";
         Role role = roleRepository.findByRole(ROLE);
         if (role == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no role"),
-                                        HttpStatus.BAD_REQUEST);
+                    HttpStatus.BAD_REQUEST);
 
         }
         user.addRole(role);
         userRepository.save(user);
         return new ResponseEntity<>(new ResponseStatus(true, "user created"),
-                                    HttpStatus.CREATED);
+                HttpStatus.CREATED);
     }
 
     @Override
@@ -148,7 +152,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUsername(userName);
         if (user == null) {
-            return new ResponseEntity<>(new ResponseStatus(false,"no user"),
+            return new ResponseEntity<>(new ResponseStatus(false, "no user"),
                     HttpStatus.BAD_REQUEST);
         }
 
@@ -156,5 +160,22 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         return new ResponseEntity<>(new ResponseStatus(true, "ticket ordered"),
                 HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> getUserTickets(String userName) {
+        User user = userRepository.findByUsername(userName);
+        List<MockTicket> mockTicketList = new ArrayList<>();
+        if (user == null) {
+            return new ResponseEntity<>(mockTicketList,
+                    HttpStatus.BAD_REQUEST);
+        }
+        logger.info("userName = " + user.getUsername());
+        List<Ticket> ticketList = ticketRepository.findByUser(user);
+        for (Ticket ticket : ticketList) {
+            MockTicket mockTicket = new MockTicket(ticket);
+            mockTicketList.add(mockTicket);
+        }
+        return new ResponseEntity<>(mockTicketList, HttpStatus.CREATED);
     }
 }

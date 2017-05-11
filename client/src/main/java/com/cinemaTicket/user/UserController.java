@@ -79,4 +79,10 @@ public class UserController {
         String username = getUserName(request);
         return userService.orderTicket(username, ticketId);
     }
+
+    @RequestMapping(value = "/users/getTicketList", method = RequestMethod.GET)
+    ResponseEntity<?> createCinemaComment(HttpServletRequest request) {
+        String username = getUserName(request);
+        return userService.getUserTickets(username);
+    }
 }

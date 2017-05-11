@@ -29,6 +29,10 @@ public class Ticket extends BaseEntity {
     public Ticket() {
     }
 
+    public Ticket(TicketStatus status) {
+        this.status = status;
+    }
+
     public Ticket(CinemaShow cinemaShow) {
         this.cinemaShow = cinemaShow;
     }

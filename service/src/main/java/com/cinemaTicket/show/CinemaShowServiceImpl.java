@@ -108,13 +108,12 @@ public class CinemaShowServiceImpl implements CinemaShowService {
             ticket.setSeat(seat);
             ticket.setStatus(TicketStatus.ACTIVE);
             cinemaShow.addTicket(ticket);
+            logger.info(ticket.getStatus());
         }
-
         cinemaShow.setFilm(filmItem);
         cinemaShow.setCinemaRoom(cinemaRoomItem);
         cinemaShow.setStatus(cinemaShowInfo.getStatus());
         cinemaShowRepository.save(cinemaShow);
-
         return new ResponseEntity<>(new ResponseStatus(true), HttpStatus.CREATED);
     }
 

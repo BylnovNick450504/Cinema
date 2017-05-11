@@ -8,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import javax.xml.stream.events.Comment;
 
 public interface UserService {
-    ResponseEntity<?> orderTicket(String user, TicketInfo ticketInfo);
-    ResponseEntity<?> orderTicket(String user, CustomSoloRequest ticketId);
+    ResponseEntity<?> orderTicket(String userName, TicketInfo ticketInfo);
+    ResponseEntity<?> orderTicket(String userName, CustomSoloRequest ticketId);
     ResponseEntity<?> createUser(User user);
-    ResponseEntity<?> editUser(String username, UserInfo user);
-    ResponseEntity<?> createCinemaComment(String username, CinemaComment cinemaComment);
+    ResponseEntity<?> editUser(String userName, UserInfo user);
+    ResponseEntity<?> createCinemaComment(String userName, CinemaComment cinemaComment);
+    ResponseEntity<?> getUserTickets(String userName);
 
 }
