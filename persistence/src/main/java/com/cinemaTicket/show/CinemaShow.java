@@ -25,15 +25,18 @@ public class CinemaShow extends BaseEntity {
 
     private Integer status;
 
+    private Double priceCoefficient;
+
     @OneToMany(mappedBy = "cinemaShow", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
     public CinemaShow() {
     }
 
-    public CinemaShow(Date showDate, int status) {
+    public CinemaShow(Date showDate, int status, double priceCoefficient) {
         this.showDate = showDate;
         this.status = status;
+        this.priceCoefficient = priceCoefficient;
     }
 
     public Date getShowDate() {
@@ -85,4 +88,18 @@ public class CinemaShow extends BaseEntity {
         ticketItem.setCinemaShow(this);
         tickets.add(ticketItem);
     }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Double getPriceCoefficient() {
+        return priceCoefficient;
+    }
+
+    public void setPriceCoefficient(Double priceCoefficient) {
+        this.priceCoefficient = priceCoefficient;
+    }
 }
+
+

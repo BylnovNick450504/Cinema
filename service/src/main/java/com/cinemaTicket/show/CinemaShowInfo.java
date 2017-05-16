@@ -8,6 +8,7 @@ public class CinemaShowInfo {
     private Integer status;
     private Long filmId;
     private Long cinemaRoomId;
+    private Double coefficient;
 
     public CinemaShowInfo() {
     }
@@ -15,12 +16,14 @@ public class CinemaShowInfo {
     public CinemaShowInfo(Date showDate,
                           Integer status,
                           Long filmId,
-                          Long cinemaRoomId
+                          Long cinemaRoomId,
+                          Double coefficient
     ) {
         this.showDate = showDate;
         this.status = status;
         this.filmId = filmId;
         this.cinemaRoomId = cinemaRoomId;
+        this.coefficient = coefficient;
     }
 
     public Date getShowDate() {
@@ -37,5 +40,9 @@ public class CinemaShowInfo {
 
     public Long getCinemaRoomId() {
         return cinemaRoomId;
+    }
+
+    public Double getCoefficient() {
+        return coefficient;
     }
 }

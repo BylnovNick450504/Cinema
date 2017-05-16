@@ -42,10 +42,10 @@ public class DatabaseLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         Date date1 = new Date(2017,6, 25);
-        Film film1 = new Film("agent 008", "stolone", 100500, date1,  14, "new awesome action!",55, 4, "news/images/night.jpg", 80);
-        Film film2 = new Film("divergent", "jack black", 80000200, new Date(2016, 5, 10),  14, "for young people",40, 6, "/news/images/night.jpg", 180 );
-        Film film3 = new Film("defenders", "mixalkov", 30040, new Date(2015, 7, 9),  16, "not bad",30, 3, "/news/images/night.jpg", 120 );
-        Film film4 = new Film("defenders", "mixalkov", 30040, new Date(2015, 7, 9),  16, "not bad",30, 3, "/news/images/night.jpg", 95 );
+        Film film1 = new Film("agent 008", "stolone", 100500, date1,  14, "new awesome action!",55, 4, "http://localhost:8080/news/images/night.jpg", 80);
+        Film film2 = new Film("divergent", "jack black", 80000200, new Date(2016, 5, 10),  14, "for young people",40, 6, "http://localhost:8080/news/images/sf.jpg", 180 );
+        Film film3 = new Film("defenders", "mixalkov", 30040, new Date(2015, 7, 9),  16, "not bad",30, 3, "http://localhost:8080/news/images/math.jpg", 120 );
+        Film film4 = new Film("defenders", "mixalkov", 30040, new Date(2015, 7, 9),  16, "not bad",30, 3, "http://localhost:8080/news/images/Vozmezdie.jpg", 95 );
 
         filmRepository.save(film1);
         filmRepository.save(film2);

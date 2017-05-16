@@ -31,6 +31,7 @@ public class NewsImagesController extends FileController {
     @PostMapping("/" + folder + "upload")
     @ResponseBody
     public UploadResponse handleFileUpload(@RequestParam("file") MultipartFile file) {
+        System.out.println("hello");
         String newPath = storageService.store(file, folder);
         return new UploadResponse("/" + folder + newPath);
     }

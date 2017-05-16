@@ -12,6 +12,7 @@ public class MockTicket {
     private int row;
     private int number;
     private String status;
+    private double price;
 
     public MockTicket() {
     }
@@ -23,7 +24,8 @@ public class MockTicket {
                       String roomName,
                       int row,
                       int number,
-                      String status
+                      String status,
+                      double price
     ) {
         this.id = id;
         this.filmName = filmName;
@@ -33,6 +35,7 @@ public class MockTicket {
         this.row = row;
         this.number = number;
         this.status = status;
+        this.price = price;
     }
 
     public MockTicket(Ticket ticket) {
@@ -44,6 +47,7 @@ public class MockTicket {
         this.row = ticket.getSeat().getRow();
         this.number = ticket.getSeat().getNumber();
         this.status = ticket.getStatus().toString();
+        this.price = ticket.getCinemaShow().getPriceCoefficient() * ticket.getCinemaShow().getFilm().getRecommendTicketCost();
     }
 
     public Long getId() {
@@ -76,5 +80,9 @@ public class MockTicket {
 
     public String getStatus() {
         return status;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

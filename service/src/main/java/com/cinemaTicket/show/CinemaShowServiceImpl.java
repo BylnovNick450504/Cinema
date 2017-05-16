@@ -102,7 +102,8 @@ public class CinemaShowServiceImpl implements CinemaShowService {
             return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
         }
         CinemaShow cinemaShow = new CinemaShow(cinemaShowInfo.getShowDate(),
-                                               cinemaShowInfo.getStatus());
+                                               cinemaShowInfo.getStatus(),
+                                                cinemaShowInfo.getCoefficient());
         for (Seat seat : cinemaRoomItem.getSeats()) {
             Ticket ticket = new Ticket();
             ticket.setSeat(seat);

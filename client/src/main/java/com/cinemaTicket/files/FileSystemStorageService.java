@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.stream.Stream;
 
 @EnableConfigurationProperties(StorageProperties.class)
@@ -44,19 +45,21 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String store(MultipartFile file, String folder) {
+        String imgName;
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
             String route = rootLocation.resolve(folder).toString();
+            imgName = "cinema-ticket-" + new Date().getTime() + file.getOriginalFilename();
             // check folder (exist or not)
             makeDir(route);
-            Files.copy(file.getInputStream(), rootLocation.resolve(folder + file.getOriginalFilename()));
+            Files.copy(file.getInputStream(), rootLocation.resolve(folder + imgName));
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
 
-        return file.getOriginalFilename();
+        return imgName;
     }
 
     @Override
