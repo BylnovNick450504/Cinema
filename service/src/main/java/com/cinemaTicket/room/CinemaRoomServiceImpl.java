@@ -2,12 +2,16 @@ package com.cinemaTicket.room;
 
 
 import com.cinemaTicket.core.ResponseStatus;
+import com.cinemaTicket.room.cinemaRoomDTO.CinemaRoomDTO;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.seat.SeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CinemaRoomServiceImpl implements CinemaRoomService{
@@ -80,5 +84,17 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         cinemaRoom.getSeats().clear();
         cinemaRoomRepository.delete(cinemaRoom);
         return new ResponseEntity<>(new ResponseStatus(), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> getActiveCinemaRooms() {
+        final Integer ACTIVE = 1;
+        Iterable<CinemaRoom> cinemaRoomList = cinemaRoomRepository.findByRoomStatusEquals(ACTIVE);
+        List<CinemaRoomDTO> cinemaRoomDTOList = new ArrayList<>();
+        for (CinemaRoom cinemaRoom : cinemaRoomList) {
+            CinemaRoomDTO cinemaRoomDTO = new CinemaRoomDTO(cinemaRoom);
+            cinemaRoomDTOList.add(cinemaRoomDTO);
+        }
+        return new ResponseEntity<>(cinemaRoomDTOList, HttpStatus.CREATED);
     }
 }

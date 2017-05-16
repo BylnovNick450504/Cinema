@@ -7,4 +7,5 @@ public interface CinemaRoomService {
     ResponseStatus initCinemaRoom(Long id, CinemaRoomInfo cinemaRoomInfo);
     ResponseEntity<?> createCinemaRoom(CinemaRoom cinemaRoomItem);
     ResponseEntity<?> detachCinemaRoom(Long id);
+    ResponseEntity<?> getActiveCinemaRooms();
 }

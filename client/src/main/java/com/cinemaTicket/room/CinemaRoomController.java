@@ -26,4 +26,9 @@ public class CinemaRoomController {
     public ResponseEntity<?> detachCinemaRoom(@PathVariable Long id) {
         return cinemaRoomService.detachCinemaRoom(id);
     }
+
+    @RequestMapping(value = "/room", method = RequestMethod.GET)
+    public ResponseEntity<?> getActiveCinemaRoomList() {
+        return cinemaRoomService.getActiveCinemaRooms();
+    }
 }
