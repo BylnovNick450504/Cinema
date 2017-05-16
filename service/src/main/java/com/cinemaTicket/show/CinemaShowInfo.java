@@ -4,7 +4,7 @@ package com.cinemaTicket.show;
 import java.util.Date;
 
 public class CinemaShowInfo {
-    private Date showDate;
+    private Long showDate;
     private Integer status;
     private Long filmId;
     private Long cinemaRoomId;
@@ -13,7 +13,7 @@ public class CinemaShowInfo {
     public CinemaShowInfo() {
     }
 
-    public CinemaShowInfo(Date showDate,
+    public CinemaShowInfo(Long showDate,
                           Integer status,
                           Long filmId,
                           Long cinemaRoomId,
@@ -26,7 +26,7 @@ public class CinemaShowInfo {
         this.coefficient = coefficient;
     }
 
-    public Date getShowDate() {
+    public Long getShowDate() {
         return showDate;
     }
 
