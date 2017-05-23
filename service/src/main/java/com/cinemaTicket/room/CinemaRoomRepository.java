@@ -1,6 +1,5 @@
 package com.cinemaTicket.room;
 
-
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -8,4 +8,6 @@ public interface CinemaRoomService {
     ResponseEntity<?> createCinemaRoom(CinemaRoom cinemaRoomItem);
     ResponseEntity<?> detachCinemaRoom(Long id);
     ResponseEntity<?> getActiveCinemaRooms();
+    ResponseEntity<?> deleteSafe(Long id);
+    ResponseEntity<?> updateCinemaRoom(CinemaRoomDTO cinemaRoomDTO);
 }

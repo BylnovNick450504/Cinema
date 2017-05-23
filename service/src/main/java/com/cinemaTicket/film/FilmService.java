@@ -19,6 +19,7 @@ public interface FilmService {
     MockFilmList getAllFilms();
     ResponseEntity<?> getByGenre(String genre);
     ResponseEntity<?> getByAgePlus(int age);
+    ResponseEntity<?> deleteSafeFilm(Long id);
 
 
 }

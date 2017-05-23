@@ -27,6 +27,13 @@ public class CinemaRoom extends BaseEntity {
     public CinemaRoom() {
     }
 
+    public CinemaRoom(String name, Integer row, Integer col, Integer roomStatus) {
+        this.name = name;
+        this.row = row;
+        this.col = col;
+        this.roomStatus = roomStatus;
+    }
+
     public CinemaRoom(String name, Integer row, Integer col) {
         this.name = name;
         this.row = row;
@@ -94,4 +101,13 @@ public class CinemaRoom extends BaseEntity {
         this.cinemaShows = cinemaShows;
     }
 
+    public void update(CinemaRoomDTO cinemaRoomDTO) {
+        this.name = cinemaRoomDTO.getName();
+        this.row = cinemaRoomDTO.getRow();
+        this.col = cinemaRoomDTO.getNumber();
+    }
+
+    public void deleteSeatList() {
+        this.seats.clear();
+    }
 }

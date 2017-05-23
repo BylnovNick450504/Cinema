@@ -1,9 +1,9 @@
-package com.cinemaTicket.ticket.mockTicket;
+package com.cinemaTicket.ticket.dtoTicket;
 
 import com.cinemaTicket.core.DatePrinter;
 import com.cinemaTicket.ticket.Ticket;
 
-public class MockTicket {
+public class TicketDTO {
     private Long id;
     private String filmName;
     private String showDayMonthYear;
@@ -14,18 +14,18 @@ public class MockTicket {
     private String status;
     private double price;
 
-    public MockTicket() {
+    public TicketDTO() {
     }
 
-    public MockTicket(Long id,
-                      String filmName,
-                      String showDayMonthYear,
-                      String showHourMin,
-                      String roomName,
-                      int row,
-                      int number,
-                      String status,
-                      double price
+    public TicketDTO(Long id,
+                     String filmName,
+                     String showDayMonthYear,
+                     String showHourMin,
+                     String roomName,
+                     int row,
+                     int number,
+                     String status,
+                     double price
     ) {
         this.id = id;
         this.filmName = filmName;
@@ -38,7 +38,7 @@ public class MockTicket {
         this.price = price;
     }
 
-    public MockTicket(Ticket ticket) {
+    public TicketDTO(Ticket ticket) {
         this.id = ticket.getId();
         this.filmName = ticket.getCinemaShow().getFilm().getName();
         this.showDayMonthYear = DatePrinter.printDayMonthYear(ticket.getCinemaShow().getShowDate());

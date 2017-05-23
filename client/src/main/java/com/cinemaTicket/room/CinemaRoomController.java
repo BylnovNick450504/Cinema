@@ -1,11 +1,10 @@
 package com.cinemaTicket.room;
 
-import com.cinemaTicket.show.CinemaShow;
+import com.cinemaTicket.core.CustomSoloRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Past;
 
 @RestController
 public class CinemaRoomController {
@@ -30,5 +29,15 @@ public class CinemaRoomController {
     @RequestMapping(value = "/room", method = RequestMethod.GET)
     public ResponseEntity<?> getActiveCinemaRoomList() {
         return cinemaRoomService.getActiveCinemaRooms();
+    }
+
+    @RequestMapping(value = "/room/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteSafeCinemaRoom(@PathVariable Long id) {
+        return cinemaRoomService.deleteSafe(id);
+    }
+
+    @RequestMapping(value = "/room", method = RequestMethod.PUT)
+    public ResponseEntity<?> changeCinemaRoom(@RequestBody CinemaRoomDTO cinemaRoomDTO) {
+        return cinemaRoomService.updateCinemaRoom(cinemaRoomDTO);
     }
 }

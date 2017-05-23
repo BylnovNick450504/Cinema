@@ -10,7 +10,7 @@ import com.cinemaTicket.show.CinemaShowRepository;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.ticket.TicketInfo;
 import com.cinemaTicket.ticket.TicketRepository;
-import com.cinemaTicket.ticket.mockTicket.MockTicket;
+import com.cinemaTicket.ticket.dtoTicket.TicketDTO;
 import com.cinemaTicket.user.role.Role;
 import com.cinemaTicket.user.role.RoleRepository;
 import org.apache.commons.logging.Log;
@@ -165,17 +165,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> getUserTickets(String userName) {
         User user = userRepository.findByUsername(userName);
-        List<MockTicket> mockTicketList = new ArrayList<>();
+        List<TicketDTO> ticketDTOList = new ArrayList<>();
         if (user == null) {
-            return new ResponseEntity<>(mockTicketList,
+            return new ResponseEntity<>(ticketDTOList,
                     HttpStatus.BAD_REQUEST);
         }
         logger.info("userName = " + user.getUsername());
         List<Ticket> ticketList = ticketRepository.findByUser(user);
         for (Ticket ticket : ticketList) {
-            MockTicket mockTicket = new MockTicket(ticket);
-            mockTicketList.add(mockTicket);
+            TicketDTO ticketDTO = new TicketDTO(ticket);
+            ticketDTOList.add(ticketDTO);
         }
-        return new ResponseEntity<>(mockTicketList, HttpStatus.CREATED);
+        return new ResponseEntity<>(ticketDTOList, HttpStatus.CREATED);
     }
 }

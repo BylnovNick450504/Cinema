@@ -1,7 +1,4 @@
-package com.cinemaTicket.room.cinemaRoomDTO;
-
-
-import com.cinemaTicket.room.CinemaRoom;
+package com.cinemaTicket.room;
 
 public class CinemaRoomDTO {
     private Long id;

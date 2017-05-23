@@ -1,10 +1,8 @@
 package com.cinemaTicket.ticket;
 
-import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.show.CinemaShow;
 import com.cinemaTicket.show.CinemaShowRepository;
-import com.cinemaTicket.ticket.mockTicket.MockTicket;
-import com.cinemaTicket.user.User;
+import com.cinemaTicket.ticket.dtoTicket.TicketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +26,15 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseEntity<?> getTicketsByCinemaShow(Long showId) {
         CinemaShow cinemaShow = cinemaShowRepository.findOne(showId);
-        List<MockTicket> mockTicketList = new ArrayList<>();
+        List<TicketDTO> ticketDTOList = new ArrayList<>();
         if (cinemaShow == null) {
-            return new ResponseEntity<>(mockTicketList, HttpStatus.CREATED);
+            return new ResponseEntity<>(ticketDTOList, HttpStatus.CREATED);
         }
         List<Ticket> ticketList = ticketRepository.findByUserIsNullAndCinemaShow(cinemaShow);
         for (Ticket ticket : ticketList) {
-            MockTicket mockTicket = new MockTicket(ticket);
-            mockTicketList.add(mockTicket);
+            TicketDTO ticketDTO = new TicketDTO(ticket);
+            ticketDTOList.add(ticketDTO);
         }
-        return new ResponseEntity<>(mockTicketList, HttpStatus.CREATED);
+        return new ResponseEntity<>(ticketDTOList, HttpStatus.CREATED);
     }
 }

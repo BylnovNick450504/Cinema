@@ -54,9 +54,9 @@ public class DatabaseLoader implements ApplicationRunner {
 
         //////////////////////////////////////////////
 
-        CinemaRoom cinemaRoom1 = new CinemaRoom("green", 15, 10);
-        CinemaRoom cinemaRoom2 = new CinemaRoom("red",15, 10);
-        CinemaRoom cinemaRoom3 = new CinemaRoom("blue",15, 10);
+        CinemaRoom cinemaRoom1 = new CinemaRoom("green", 15, 10, 1);
+        CinemaRoom cinemaRoom2 = new CinemaRoom("red",12, 8, 1);
+        CinemaRoom cinemaRoom3 = new CinemaRoom("blue",8, 10, 1);
 
         cinemaRoomRepository.save(cinemaRoom1);
         cinemaRoomRepository.save(cinemaRoom2);

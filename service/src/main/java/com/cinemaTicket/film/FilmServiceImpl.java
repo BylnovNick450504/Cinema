@@ -129,12 +129,28 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public ResponseEntity<?> getByAgePlus(int age) {
-        List<Film> filmList = filmRepository.findByAgeGreaterThanEqual(age);
+        List<Film> filmList = filmRepository.findByAgeLessThanEqual(age);
         List<MockFilm> mockFilms = new ArrayList<>();
         for (Film film : filmList) {
             MockFilm mockFilm = new MockFilm(film);
             mockFilms.add(mockFilm);
         }
         return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> deleteSafeFilm(Long id) {
+        Film film = filmRepository.findOne(id);
+        if (film == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no film"),
+                    HttpStatus.NOT_FOUND);
+        }
+        if(!film.getCinemaShows().isEmpty()) {
+            return new ResponseEntity<>(new ResponseStatus(false, "film in use"),
+                    HttpStatus.OK);
+        }
+        filmRepository.delete(film);
+        return new ResponseEntity<>(new ResponseStatus(true, "film deleted"),
+                HttpStatus.OK);
     }
 }

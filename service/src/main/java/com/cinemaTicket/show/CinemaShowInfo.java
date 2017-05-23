@@ -1,8 +1,5 @@
 package com.cinemaTicket.show;
 
-
-import java.util.Date;
-
 public class CinemaShowInfo {
     private Long showDate;
     private Integer status;
@@ -13,11 +10,12 @@ public class CinemaShowInfo {
     public CinemaShowInfo() {
     }
 
-    public CinemaShowInfo(Long showDate,
-                          Integer status,
-                          Long filmId,
-                          Long cinemaRoomId,
-                          Double coefficient
+    public CinemaShowInfo(
+        Long showDate,
+        Integer status,
+        Long filmId,
+        Long cinemaRoomId,
+        Double coefficient
     ) {
         this.showDate = showDate;
         this.status = status;
