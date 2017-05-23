@@ -97,7 +97,7 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         }
         if (!cinemaRoom.getCinemaShows().isEmpty()) {
             return new ResponseEntity<>(new ResponseStatus(false, "no cinemaRoom"),
-                    HttpStatus.NOT_FOUND);
+                    HttpStatus.OK);
         }
         cinemaRoomRepository.delete(roomId);
         return new ResponseEntity<>(new ResponseStatus(true, "cinemaRoom deleted"),

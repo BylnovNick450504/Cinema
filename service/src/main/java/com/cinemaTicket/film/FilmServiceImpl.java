@@ -7,8 +7,8 @@ import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.comment.FilmCommentRepository;
 import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.film.genre.GenreRepository;
-import com.cinemaTicket.film.mock.MockFilm;
-import com.cinemaTicket.film.mock.MockFilmList;
+import com.cinemaTicket.film.filmDTO.FilmDTO;
+import com.cinemaTicket.film.filmDTO.FilmDTOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,52 +90,52 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public MockFilmList getByName(String name) {
+    public FilmDTOList getByName(String name) {
         List<Film> filmList = filmRepository.findByName(name);
-        List<MockFilm> mockFilms = new ArrayList<>();
+        List<FilmDTO> filmDTOS = new ArrayList<>();
         for (Film film : filmList) {
-            MockFilm mockFilm = new MockFilm(film);
-            mockFilms.add(mockFilm);
+            FilmDTO filmDTO = new FilmDTO(film);
+            filmDTOS.add(filmDTO);
         }
-        return new MockFilmList(mockFilms);
+        return new FilmDTOList(filmDTOS);
     }
 
     @Override
-    public MockFilmList getAllFilms() {
+    public FilmDTOList getAllFilms() {
         Iterable<Film> filmList = filmRepository.findAll();
-        List<MockFilm> mockFilms = new ArrayList<>();
+        List<FilmDTO> filmDTOS = new ArrayList<>();
         for (Film film : filmList) {
-            MockFilm mockFilm = new MockFilm(film);
-            mockFilms.add(mockFilm);
+            FilmDTO filmDTO = new FilmDTO(film);
+            filmDTOS.add(filmDTO);
         }
-        return new MockFilmList(mockFilms);
+        return new FilmDTOList(filmDTOS);
     }
 
     @Override
     public ResponseEntity<?> getByGenre(String genre) {
         Genre currentGenre = genreRepository.findByGenreName(genre);
-        List<MockFilm> mockFilms = new ArrayList<>();
+        List<FilmDTO> filmDTOS = new ArrayList<>();
         if (currentGenre == null) {
-            return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
+            return new ResponseEntity<>(filmDTOS, HttpStatus.CREATED);
         }
         List<Film> filmList = filmRepository.findByGenres(currentGenre);
 
         for (Film film : filmList) {
-            MockFilm mockFilm = new MockFilm(film);
-            mockFilms.add(mockFilm);
+            FilmDTO filmDTO = new FilmDTO(film);
+            filmDTOS.add(filmDTO);
         }
-        return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
+        return new ResponseEntity<>(filmDTOS, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> getByAgePlus(int age) {
         List<Film> filmList = filmRepository.findByAgeLessThanEqual(age);
-        List<MockFilm> mockFilms = new ArrayList<>();
+        List<FilmDTO> filmDTOS = new ArrayList<>();
         for (Film film : filmList) {
-            MockFilm mockFilm = new MockFilm(film);
-            mockFilms.add(mockFilm);
+            FilmDTO filmDTO = new FilmDTO(film);
+            filmDTOS.add(filmDTO);
         }
-        return new ResponseEntity<>(mockFilms, HttpStatus.CREATED);
+        return new ResponseEntity<>(filmDTOS, HttpStatus.CREATED);
     }
 
     @Override
@@ -152,5 +152,18 @@ public class FilmServiceImpl implements FilmService {
         filmRepository.delete(film);
         return new ResponseEntity<>(new ResponseStatus(true, "film deleted"),
                 HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> updateFilm(FilmDTO filmDTO) {
+        Film film = filmRepository.findOne(filmDTO.getId());
+        if (film == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no film"),
+                    HttpStatus.OK);
+        }
+        film.update(filmDTO);
+        film = filmRepository.save(film);
+        FilmDTO refreshedFilmDTO = new FilmDTO(film);
+        return new ResponseEntity<>(refreshedFilmDTO, HttpStatus.OK);
     }
 }

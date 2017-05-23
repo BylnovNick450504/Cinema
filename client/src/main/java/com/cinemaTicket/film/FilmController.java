@@ -1,9 +1,8 @@
 package com.cinemaTicket.film;
 
-import com.cinemaTicket.film.mock.MockFilm;
-import com.cinemaTicket.film.mock.MockFilmList;
+import com.cinemaTicket.film.filmDTO.FilmDTO;
+import com.cinemaTicket.film.filmDTO.FilmDTOList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -36,12 +35,12 @@ public class FilmController {
     }
 
     @RequestMapping(value = "/films/find", method = RequestMethod.GET)
-    public MockFilmList getByName(@RequestParam("Name") String name) {
+    public FilmDTOList getByName(@RequestParam("Name") String name) {
         return filmService.getByName(name);
     }
 
     @RequestMapping(value = "/films/findAll", method = RequestMethod.GET)
-    public MockFilmList getAllFilms() {
+    public FilmDTOList getAllFilms() {
         return filmService.getAllFilms();
     }
 
@@ -59,5 +58,10 @@ public class FilmController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteSafeFilm(@PathVariable Long id) {
         return filmService.deleteSafeFilm(id);
+    }
+
+    @RequestMapping(value = "/film", method = RequestMethod.PUT)
+    public ResponseEntity<?> changeFilm(@RequestBody FilmDTO filmDTO) {
+        return filmService.updateFilm(filmDTO);
     }
 }

@@ -1,10 +1,10 @@
-package com.cinemaTicket.film.mock;
+package com.cinemaTicket.film.filmDTO;
 
 import com.cinemaTicket.film.Film;
 
 import java.util.Date;
 
-public class MockFilm {
+public class FilmDTO {
     private Long id;
     private String name;
     private String producer;
@@ -14,21 +14,24 @@ public class MockFilm {
     private int age;
     private int rating;
     private int recommendTicketCost;
+    private int status;
     private String picturePath;
+    private Integer duration;
 
+    public FilmDTO() {}
 
-    public MockFilm() {}
-
-    public MockFilm(Long id,
-                    String name,
-                    String producer,
-                    double budget,
-                    String premiereDate,
-                    String description,
-                    int age,
-                    int rating,
-                    int recommendTicketCost,
-                    String picturePath
+    public FilmDTO(Long id,
+                   String name,
+                   String producer,
+                   double budget,
+                   String premiereDate,
+                   String description,
+                   int age,
+                   int rating,
+                   int recommendTicketCost,
+                   String picturePath,
+                   int duration,
+                   int status
 
     ) {
         this.id = id;
@@ -41,9 +44,11 @@ public class MockFilm {
         this.rating = rating;
         this.recommendTicketCost = recommendTicketCost;
         this.picturePath = picturePath;
+        this.duration = duration;
+        this.status = status;
     }
 
-    public MockFilm(Film film) {
+    public FilmDTO(Film film) {
         this.id = film.getId();
         this.name = film.getName();
         this.producer = film.getProducer();
@@ -54,6 +59,8 @@ public class MockFilm {
         this.rating = film.getRating();
         this.recommendTicketCost = film.getRecommendTicketCost();
         this.picturePath = film.getPicturePath();
+        this.duration = film.getDuration();
+        this.status = film.getFilmStatus();
     }
 
     private String checkDayAndMonth(int digit) {
@@ -113,5 +120,13 @@ public class MockFilm {
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }
