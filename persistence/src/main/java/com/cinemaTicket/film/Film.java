@@ -2,9 +2,7 @@ package com.cinemaTicket.film;
 
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.core.DatePrinter;
-import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.film.filmDTO.FilmDTO;
-import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.show.CinemaShow;
 
 import javax.persistence.*;
@@ -27,13 +25,6 @@ public class Film extends BaseEntity {
     private Integer filmStatus;
     private String picturePath;
     private Integer duration;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "film_genre")
-    private List<Genre> genres = new ArrayList<>();
-
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
-    private List<FilmComment> filmComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
     private List<CinemaShow> cinemaShows = new ArrayList<>();
@@ -62,6 +53,7 @@ public class Film extends BaseEntity {
         this.recommendTicketCost = recommendTicketCost;
         this.picturePath = picturePath;
         this.duration = duration;
+        this.filmStatus = 1;
     }
 
     public void updateFilm(Film film) {
@@ -75,6 +67,7 @@ public class Film extends BaseEntity {
         this.recommendTicketCost = film.getRecommendTicketCost();
         this.picturePath = film.getPicturePath();
         this.duration = film.getDuration();
+        this.filmStatus = film.getFilmStatus();
     }
 
     public String getName() {
@@ -115,30 +108,6 @@ public class Film extends BaseEntity {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public List<FilmComment> getFilmComments() {
-        return filmComments;
-    }
-
-    public void setFilmComments(List<FilmComment> filmComments) {
-        this.filmComments = filmComments;
-    }
-
-    public void addGenre(Genre genreItem) {
-        genres.add(genreItem);
-    }
-
-    public void addComment(FilmComment filmCommentItem) {
-        filmComments.add(filmCommentItem);
     }
 
     public String getDescription() {

@@ -9,17 +9,12 @@ import com.cinemaTicket.film.filmDTO.FilmDTOList;
 import org.springframework.http.ResponseEntity;
 
 public interface FilmService {
-    ResponseStatus addGenres(Long id, CustomMonoRequest genres);
-    ResponseStatus addComment(Long id, CustomSoloRequest comment);
     ResponseEntity<?> createFilm(Film film);
     ResponseEntity<?> updateFilm(Long id, Film film);
     ResponseEntity<?> deleteFilm(Long id);
     FilmDTOList getByName(String name);
     FilmDTOList getAllFilms();
-    ResponseEntity<?> getByGenre(String genre);
     ResponseEntity<?> getByAgePlus(int age);
     ResponseEntity<?> deleteSafeFilm(Long id);
     ResponseEntity<?> updateFilm(FilmDTO filmDTO);
-
-
 }

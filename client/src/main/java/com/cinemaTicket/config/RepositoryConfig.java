@@ -1,7 +1,6 @@
 package com.cinemaTicket.config;
 
 import com.cinemaTicket.film.Film;
-import com.cinemaTicket.film.genre.Genre;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.show.CinemaShow;
@@ -23,7 +22,6 @@ public class RepositoryConfig extends RepositoryRestConfigurerAdapter {
                 CinemaShow.class,
                 Ticket.class,
                 Film.class,
-                Genre.class,
                 User.class,
                 Role.class
         );

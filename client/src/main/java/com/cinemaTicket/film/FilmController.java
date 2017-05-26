@@ -49,11 +49,6 @@ public class FilmController {
         return filmService.getByAgePlus(age);
     }
 
-    @RequestMapping(value = "/films/findByGenre", method = RequestMethod.GET)
-    public ResponseEntity<?> getByGenre(@RequestParam("Genre") String genre) {
-        return filmService.getByGenre(genre);
-    }
-
     @RequestMapping(value = "/film/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteSafeFilm(@PathVariable Long id) {

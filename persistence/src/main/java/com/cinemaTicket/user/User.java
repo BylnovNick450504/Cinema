@@ -2,7 +2,6 @@ package com.cinemaTicket.user;
 
 import com.cinemaTicket.cinema.CinemaComment;
 import com.cinemaTicket.core.BaseEntity;
-import com.cinemaTicket.film.comment.FilmComment;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.user.role.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,9 +21,6 @@ public class User extends BaseEntity {
     private String email;
     private String name;
     private String password;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<FilmComment> filmComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
@@ -78,14 +74,6 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    public List<FilmComment> getFilmComments() {
-        return filmComments;
-    }
-
-    public void setFilmComments(List<FilmComment> filmComments) {
-        this.filmComments = filmComments;
-    }
-
     public List<Ticket> getTickets() {
         return tickets;
     }
@@ -100,11 +88,6 @@ public class User extends BaseEntity {
 
     public void setCinemaComments(List<CinemaComment> cinemaComments) {
         this.cinemaComments = cinemaComments;
-    }
-
-    public void addFilmComment(FilmComment filmCommentItem) {
-        filmCommentItem.setUser(this);
-        filmComments.add(filmCommentItem);
     }
 
     public void addCinemaComment(CinemaComment cinemaCommentItem) {

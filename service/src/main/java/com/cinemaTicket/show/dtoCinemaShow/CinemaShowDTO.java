@@ -1,25 +1,25 @@
-package com.cinemaTicket.show.mockCinemaShow;
+package com.cinemaTicket.show.dtoCinemaShow;
 
 import com.cinemaTicket.core.DatePrinter;
 import com.cinemaTicket.show.CinemaShow;
 
-public class MockCinemaShow {
+public class CinemaShowDTO {
     private Long id;
     private String showDayMonthYear;
     private String showHourMin;
     private String filmName;
 
-    public MockCinemaShow() {
+    public CinemaShowDTO() {
     }
 
-    public MockCinemaShow(String showDayMonthYear, String showHourMin, String filmName, Long id) {
+    public CinemaShowDTO(String showDayMonthYear, String showHourMin, String filmName, Long id) {
         this.showDayMonthYear = showDayMonthYear;
         this.showHourMin = showHourMin;
         this.filmName = filmName;
         this.id = id;
     }
 
-    public MockCinemaShow(CinemaShow cinemaShow) {
+    public CinemaShowDTO(CinemaShow cinemaShow) {
         this.id = cinemaShow.getId();
         this.filmName = cinemaShow.getFilm().getName();
         this.showDayMonthYear = DatePrinter.printDayMonthYear(cinemaShow.getShowDate());

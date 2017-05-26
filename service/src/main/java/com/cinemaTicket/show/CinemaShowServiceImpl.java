@@ -7,7 +7,7 @@ import com.cinemaTicket.film.FilmRepository;
 import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.room.CinemaRoomRepository;
 import com.cinemaTicket.seat.Seat;
-import com.cinemaTicket.show.mockCinemaShow.MockCinemaShow;
+import com.cinemaTicket.show.dtoCinemaShow.CinemaShowDTO;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.ticket.TicketRepository;
 import com.cinemaTicket.ticket.TicketStatus;
@@ -123,19 +123,19 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         Film film = filmRepository.findOne(filmId);
         logger.info("Film Id = " + filmId);
         Date currentDate = new Date();
-        List<MockCinemaShow> mockCinemaShowList = new ArrayList<>();
+        List<CinemaShowDTO> cinemaShowDTOList = new ArrayList<>();
         if (film == null) {
-            return new ResponseEntity<>(mockCinemaShowList, HttpStatus.CREATED);
+            return new ResponseEntity<>(cinemaShowDTOList, HttpStatus.CREATED);
         }
         List<CinemaShow> cinemaShowList = cinemaShowRepository.findByFilm(film);
         logger.info("Show " + cinemaShowList.size());
         for (CinemaShow cinemaShow : cinemaShowList) {
             if(cinemaShow.getShowDate().after(currentDate)) {
-                MockCinemaShow mockCinemaShow = new MockCinemaShow(cinemaShow);
-                mockCinemaShowList.add(mockCinemaShow);
+                CinemaShowDTO cinemaShowDTO = new CinemaShowDTO(cinemaShow);
+                cinemaShowDTOList.add(cinemaShowDTO);
             }
         }
-        return new ResponseEntity<>(mockCinemaShowList, HttpStatus.CREATED);
+        return new ResponseEntity<>(cinemaShowDTOList, HttpStatus.CREATED);
     }
 
 
