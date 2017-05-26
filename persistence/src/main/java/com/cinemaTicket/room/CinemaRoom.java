@@ -6,15 +6,23 @@ import com.cinemaTicket.show.CinemaShow;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "cinema_room")
 public class CinemaRoom extends BaseEntity {
+    @NotNull
     private String name;
+
+    @NotNull
     private Integer row;
+
+    @NotNull
     private Integer col;
+
+    @NotNull
     private Integer roomStatus;
 
     @OneToMany(mappedBy = "cinemaRoom", cascade = CascadeType.ALL)

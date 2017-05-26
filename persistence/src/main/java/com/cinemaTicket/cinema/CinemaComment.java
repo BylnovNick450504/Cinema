@@ -5,6 +5,7 @@ import com.cinemaTicket.user.User;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,12 +14,15 @@ public class CinemaComment extends BaseEntity {
 
     @Lob
     @Type(type = "text")
+    @NotNull
     private String comment;
 
     @OneToOne
     @JoinColumn(name = "creator_id")
+    @NotNull
     private User user;
 
+    @NotNull
     private Date date;
 
     public CinemaComment() {

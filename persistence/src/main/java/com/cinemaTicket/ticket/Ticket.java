@@ -6,16 +6,19 @@ import com.cinemaTicket.show.CinemaShow;
 import com.cinemaTicket.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(name = "ticket")
 public class Ticket extends BaseEntity {
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "cinema_show_id")
     private CinemaShow cinemaShow;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
@@ -24,6 +27,7 @@ public class Ticket extends BaseEntity {
     @JoinColumn(name = "person_id")
     private User user;
 
+    @NotNull
     private TicketStatus status;
 
     public Ticket() {

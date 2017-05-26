@@ -5,6 +5,7 @@ import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.ticket.Ticket;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,13 @@ import java.util.List;
 @Table(name = "seat")
 public class Seat extends BaseEntity {
 
+    @NotNull
     private int number;
+
+    @NotNull
     private int row;
 
-    @JsonBackReference
+    @NotNull
     @OneToOne
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoom cinemaRoom;

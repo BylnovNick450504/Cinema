@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "role")
 public class Role extends BaseEntity {
 
+    @NotNull
     private String role;
 
     @ManyToMany(mappedBy = "roles")

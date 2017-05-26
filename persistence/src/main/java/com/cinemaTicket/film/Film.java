@@ -6,6 +6,8 @@ import com.cinemaTicket.film.filmDTO.FilmDTO;
 import com.cinemaTicket.show.CinemaShow;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,16 +16,39 @@ import java.util.List;
 @Table(name = "film")
 public class Film extends BaseEntity {
 
+    @NotNull
+    @Size(min = 1, max = 100)
     private String name;
+
+    @NotNull
+    @Size(min = 1, max = 100)
     private String producer;
+
+    @NotNull
     private Double budget;
+
+    @NotNull
     private Date premiereDate;
+
+    @NotNull
     private String description;
+
+    @NotNull
     private Integer age;
+
+    @NotNull
     private Integer rating;
+
+    @NotNull
     private Integer recommendTicketCost;
+
+    @NotNull
     private Integer filmStatus;
+
+    @NotNull
     private String picturePath;
+
+    @NotNull
     private Integer duration;
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)

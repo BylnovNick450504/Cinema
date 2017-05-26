@@ -6,6 +6,7 @@ import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.ticket.Ticket;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,18 +14,24 @@ import java.util.List;
 @Entity
 @Table(name = "cinema_show")
 public class CinemaShow extends BaseEntity {
+
+    @NotNull
     private Date showDate;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoom cinemaRoom;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "film_id")
     private Film film;
 
+    @NotNull
     private Integer status;
 
+    @NotNull
     private Double priceCoefficient;
 
     @OneToMany(mappedBy = "cinemaShow", cascade = CascadeType.ALL)

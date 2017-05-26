@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +18,17 @@ import java.util.List;
 public class User extends BaseEntity {
 
     private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+
+    @NotNull
     private String username;
+
+    @NotNull
     private String email;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
