@@ -8,9 +8,7 @@ import com.cinemaTicket.ticket.TicketInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RestController
 public class UserController {
@@ -63,7 +60,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    ResponseEntity<?> editUser(@RequestBody  UserInfo user, HttpServletRequest request) {
+    ResponseEntity<?> editUser(@RequestBody UserDTO user, HttpServletRequest request) {
         String username = getUserName(request);
         return userService.editUser(username, user);
     }
@@ -75,13 +72,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/order", method = RequestMethod.POST)
-    ResponseEntity<?> createCinemaComment(@RequestBody CustomSoloRequest ticketId, HttpServletRequest request) {
+    ResponseEntity<?> orderTicket(@RequestBody CustomSoloRequest ticketId, HttpServletRequest request) {
         String username = getUserName(request);
         return userService.orderTicket(username, ticketId);
     }
 
     @RequestMapping(value = "/users/getTicketList", method = RequestMethod.GET)
-    ResponseEntity<?> createCinemaComment(HttpServletRequest request) {
+    ResponseEntity<?> getUserTicketList(HttpServletRequest request) {
         String username = getUserName(request);
         return userService.getUserTickets(username);
     }

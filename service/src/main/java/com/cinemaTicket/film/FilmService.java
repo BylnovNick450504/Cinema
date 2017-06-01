@@ -12,8 +12,8 @@ public interface FilmService {
     ResponseEntity<?> createFilm(Film film);
     ResponseEntity<?> updateFilm(Long id, Film film);
     ResponseEntity<?> deleteFilm(Long id);
-    FilmDTOList getByName(String name);
-    FilmDTOList getAllFilms();
+    ResponseEntity<?> getByName(String name);
+    ResponseEntity<?> getAllFilms();
     ResponseEntity<?> getByAgePlus(int age);
     ResponseEntity<?> deleteSafeFilm(Long id);
     ResponseEntity<?> updateFilm(FilmDTO filmDTO);

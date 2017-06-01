@@ -46,25 +46,25 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FilmDTOList getByName(String name) {
+    public ResponseEntity<?> getByName(String name) {
         List<Film> filmList = filmRepository.findByName(name);
         List<FilmDTO> filmDTOS = new ArrayList<>();
         for (Film film : filmList) {
             FilmDTO filmDTO = new FilmDTO(film);
             filmDTOS.add(filmDTO);
         }
-        return new FilmDTOList(filmDTOS);
+        return new ResponseEntity<>(filmDTOS, HttpStatus.CREATED);
     }
 
     @Override
-    public FilmDTOList getAllFilms() {
+    public ResponseEntity<?> getAllFilms() {
         Iterable<Film> filmList = filmRepository.findAll();
         List<FilmDTO> filmDTOS = new ArrayList<>();
         for (Film film : filmList) {
             FilmDTO filmDTO = new FilmDTO(film);
             filmDTOS.add(filmDTO);
         }
-        return new FilmDTOList(filmDTOS);
+        return new ResponseEntity<>(filmDTOS, HttpStatus.CREATED);
     }
 
     @Override

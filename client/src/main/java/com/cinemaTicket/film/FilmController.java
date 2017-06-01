@@ -1,7 +1,6 @@
 package com.cinemaTicket.film;
 
 import com.cinemaTicket.film.filmDTO.FilmDTO;
-import com.cinemaTicket.film.filmDTO.FilmDTOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,12 +34,12 @@ public class FilmController {
     }
 
     @RequestMapping(value = "/films/find", method = RequestMethod.GET)
-    public FilmDTOList getByName(@RequestParam("Name") String name) {
+    public ResponseEntity<?> getByName(@RequestParam("Name") String name) {
         return filmService.getByName(name);
     }
 
     @RequestMapping(value = "/films/findAll", method = RequestMethod.GET)
-    public FilmDTOList getAllFilms() {
+    public ResponseEntity<?> getAllFilms() {
         return filmService.getAllFilms();
     }
 

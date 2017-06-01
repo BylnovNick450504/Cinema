@@ -8,27 +8,27 @@ public class FilmDTO {
     private Long id;
     private String name;
     private String producer;
-    private double budget;
+    private int budget;
     private String premiereDate;
     private String description;
     private int age;
     private int rating;
-    private int recommendTicketCost;
+    private double recommendTicketCost;
     private int status;
     private String picturePath;
-    private Integer duration;
+    private int duration;
 
     public FilmDTO() {}
 
     public FilmDTO(Long id,
                    String name,
                    String producer,
-                   double budget,
+                   int budget,
                    String premiereDate,
                    String description,
                    int age,
                    int rating,
-                   int recommendTicketCost,
+                   double recommendTicketCost,
                    String picturePath,
                    int duration,
                    int status
@@ -90,7 +90,7 @@ public class FilmDTO {
         return producer;
     }
 
-    public double getBudget() {
+    public int getBudget() {
         return budget;
     }
 
@@ -110,7 +110,7 @@ public class FilmDTO {
         return rating;
     }
 
-    public int getRecommendTicketCost() {
+    public double getRecommendTicketCost() {
         return recommendTicketCost;
     }
 

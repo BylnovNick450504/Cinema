@@ -25,7 +25,7 @@ public class Film extends BaseEntity {
     private String producer;
 
     @NotNull
-    private Double budget;
+    private Integer budget;
 
     @NotNull
     private Date premiereDate;
@@ -40,7 +40,7 @@ public class Film extends BaseEntity {
     private Integer rating;
 
     @NotNull
-    private Integer recommendTicketCost;
+    private Double recommendTicketCost;
 
     @NotNull
     private Integer filmStatus;
@@ -59,12 +59,12 @@ public class Film extends BaseEntity {
 
     public Film(String name,
                 String producer,
-                double budget,
+                Integer budget,
                 Date premiereDate,
-                int age,
+                Integer age,
                 String description,
-                int rating,
-                int recommendTicketCost,
+                Integer rating,
+                Double recommendTicketCost,
                 String picturePath,
                 Integer duration
     ) {
@@ -111,11 +111,11 @@ public class Film extends BaseEntity {
         this.producer = producer;
     }
 
-    public double getBudget() {
+    public Integer getBudget() {
         return budget;
     }
 
-    public void setBudget(double budget) {
+    public void setBudget(Integer budget) {
         this.budget = budget;
     }
 
@@ -151,11 +151,11 @@ public class Film extends BaseEntity {
         this.rating = rating;
     }
 
-    public int getRecommendTicketCost() {
+    public Double getRecommendTicketCost() {
         return recommendTicketCost;
     }
 
-    public void setRecommendTicketCost(int recommendTicketCost) {
+    public void setRecommendTicketCost(Double recommendTicketCost) {
         this.recommendTicketCost = recommendTicketCost;
     }
 
@@ -173,22 +173,6 @@ public class Film extends BaseEntity {
 
     public void setFilmStatus(Integer filmStatus) {
         this.filmStatus = filmStatus;
-    }
-
-    public void setBudget(Double budget) {
-        this.budget = budget;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public void setRecommendTicketCost(Integer recommendTicketCost) {
-        this.recommendTicketCost = recommendTicketCost;
     }
 
     public String getPicturePath() {

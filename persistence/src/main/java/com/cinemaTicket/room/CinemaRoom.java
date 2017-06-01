@@ -26,7 +26,6 @@ public class CinemaRoom extends BaseEntity {
     private Integer roomStatus;
 
     @OneToMany(mappedBy = "cinemaRoom", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Seat> seats = new ArrayList<>();
 
     @OneToMany(mappedBy = "cinemaRoom", cascade = CascadeType.ALL)

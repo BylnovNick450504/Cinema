@@ -53,34 +53,34 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(userName);
         if (user == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no user"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         Long id = ticketInfo.getShowId();
         CinemaShow cinemaShow = cinemaShowRepository.findOne(ticketInfo.getShowId());
         if (cinemaShow == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no show"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         Seat seat = seatRepository.findByCinemaRoomAndRowAndNumber(cinemaShow.getCinemaRoom(),
                 ticketInfo.getRow(),
                 ticketInfo.getNumber());
         if (seat == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no seat"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         Ticket ticket = ticketRepository.findBySeat(seat);
         if (ticket == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no ticket"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         if (ticket.getStatus().equals(BOOKED)) {
             return new ResponseEntity<>(new ResponseStatus(false, "booked"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
 
         if (ticket.getUser() != null) {
             return new ResponseEntity<>(new ResponseStatus(false, "booked"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
 
         user.addTicket(ticket);
@@ -94,13 +94,13 @@ public class UserServiceImpl implements UserService {
         logger.info(user.getUsername());
         if (oldUser != null) {
             return new ResponseEntity<>(new ResponseStatus(false, "name already exist"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         String ROLE = "ROLE_USER";
         Role role = roleRepository.findByRole(ROLE);
         if (role == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no role"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
 
         }
         user.addRole(role);
@@ -110,12 +110,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> editUser(String username, UserInfo user) {
+    public ResponseEntity<?> editUser(String username, UserDTO user) {
         User oldUser = userRepository.findByUsername(user.getUsername());
         logger.info(user.getUsername());
-        if (oldUser != null) {
+        if (oldUser != null && !oldUser.getId().equals(user.getId())) {
             return new ResponseEntity<>(new ResponseStatus(false, "name already exist"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         User editUser = userRepository.findByUsername(username);
 
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no user"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         user.addCinemaComment(cinemaComment);
         userRepository.save(user);
@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(userName);
         if (user == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no user"),
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
 
         user.addTicket(ticket);
@@ -168,7 +168,7 @@ public class UserServiceImpl implements UserService {
         List<TicketDTO> ticketDTOList = new ArrayList<>();
         if (user == null) {
             return new ResponseEntity<>(ticketDTOList,
-                    HttpStatus.BAD_REQUEST);
+                    HttpStatus.CREATED);
         }
         logger.info("userName = " + user.getUsername());
         List<Ticket> ticketList = ticketRepository.findByUser(user);
