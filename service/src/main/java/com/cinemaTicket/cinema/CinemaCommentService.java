@@ -1,7 +1,7 @@
 package com.cinemaTicket.cinema;
 
-import com.cinemaTicket.cinema.mock.CinemaCommentsMockList;
+import org.springframework.http.ResponseEntity;
 
 public interface CinemaCommentService {
-    CinemaCommentsMockList getCinemaComments();
+    ResponseEntity<?> getCinemaComments();
 }

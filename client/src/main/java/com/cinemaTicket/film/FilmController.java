@@ -1,5 +1,6 @@
 package com.cinemaTicket.film;
 
+import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.film.filmDTO.FilmDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,5 +58,10 @@ public class FilmController {
     @RequestMapping(value = "/film", method = RequestMethod.PUT)
     public ResponseEntity<?> changeFilm(@RequestBody FilmDTO filmDTO) {
         return filmService.updateFilm(filmDTO);
+    }
+
+    @RequestMapping(value = "/film/check", method = RequestMethod.POST)
+    public ResponseEntity<?> isUsed(@RequestBody CustomSoloRequest filmId) {
+        return filmService.isUsed(filmId);
     }
 }

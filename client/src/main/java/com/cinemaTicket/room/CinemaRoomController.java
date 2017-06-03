@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.bind.SchemaOutputResolver;
-
-
 @RestController
 public class CinemaRoomController {
 
@@ -41,5 +38,10 @@ public class CinemaRoomController {
     @RequestMapping(value = "/room", method = RequestMethod.PUT)
     public ResponseEntity<?> changeCinemaRoom(@RequestBody CinemaRoomDTO cinemaRoomDTO) {
         return cinemaRoomService.updateCinemaRoom(cinemaRoomDTO);
+    }
+
+    @RequestMapping(value = "/room/check", method = RequestMethod.POST)
+    public ResponseEntity<?> isUsed(@RequestBody CustomSoloRequest roomId) {
+        return cinemaRoomService.isUsed(roomId);
     }
 }

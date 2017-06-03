@@ -1,8 +1,8 @@
 package com.cinemaTicket.cinema;
 
 import com.cinemaTicket.cinema.mock.CinemaCommentMock;
-import com.cinemaTicket.cinema.mock.CinemaCommentsMockList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class CinemaCommentServiceImpl implements CinemaCommentService {
     }
 
     @Override
-    public CinemaCommentsMockList getCinemaComments() {
+    public ResponseEntity<?> getCinemaComments() {
         Iterable<CinemaComment> cinemaComments = cinemaCommentRepository.findAll();
         List<CinemaCommentMock> cinemaCommentMocks = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class CinemaCommentServiceImpl implements CinemaCommentService {
             CinemaCommentMock cinemaCommentMock = new CinemaCommentMock(cinemaComment);
             cinemaCommentMocks.add(cinemaCommentMock);
         }
-        return new CinemaCommentsMockList(cinemaCommentMocks);
+        return new ResponseEntity<>(cinemaCommentMocks, HttpStatus.CREATED);
     }
 }
 

@@ -12,4 +12,6 @@ public interface CinemaShowService {
     ResponseEntity<?> deleteCinemaShow(Long id);
     ResponseEntity<?> createAndInitCinemaShow(CinemaShowInfo cinemaShowInfo);
     ResponseEntity<?> getCinemaShowByFilm(Long filmId);
+    ResponseEntity<?> getCinemaShowList();
+    ResponseEntity<?> deleteSafeCinemaShow(Long cinemaShowId);
 }

@@ -3,6 +3,7 @@ package com.cinemaTicket.cinemaComment;
 import com.cinemaTicket.cinema.CinemaCommentService;
 import com.cinemaTicket.cinema.mock.CinemaCommentsMockList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class cinemaCommentController {
     }
 
     @RequestMapping(value = "/cinemaComments/getAll", method = RequestMethod.GET)
-    public CinemaCommentsMockList getAllCinemaComments() {
+    public ResponseEntity<?> getAllCinemaComments() {
         return cinemaCommentService.getCinemaComments();
     }
 }

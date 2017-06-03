@@ -1,9 +1,8 @@
 package com.cinemaTicket.film;
 
-
+import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
 import com.cinemaTicket.film.filmDTO.FilmDTO;
-import com.cinemaTicket.film.filmDTO.FilmDTOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,5 +104,20 @@ public class FilmServiceImpl implements FilmService {
         film = filmRepository.save(film);
         FilmDTO refreshedFilmDTO = new FilmDTO(film);
         return new ResponseEntity<>(refreshedFilmDTO, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> isUsed(CustomSoloRequest filmId) {
+        Film film = filmRepository.findOne(filmId.getId());
+        if (film == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no film"),
+                    HttpStatus.OK);
+        }
+        if(!film.getCinemaShows().isEmpty()) {
+            return new ResponseEntity<>(new ResponseStatus(false, "is used"),
+                    HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseStatus(true, "is not used"),
+                HttpStatus.OK);
     }
 }

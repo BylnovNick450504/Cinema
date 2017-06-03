@@ -48,7 +48,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         CinemaShow cinemaShow = cinemaShowRepository.findOne(id);
         Film film = filmRepository.findOne(filmItem.getId());
         if (cinemaShow == null || film == null) {
-            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.CREATED);
         }
         cinemaShow.setFilm(film);
         cinemaShowRepository.save(cinemaShow);
@@ -60,7 +60,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         CinemaShow cinemaShow = cinemaShowRepository.findOne(id);
         CinemaRoom cinemaRoom = cinemaRoomRepository.findOne(cinemaRoomItem.getId());
         if (cinemaShow == null || cinemaRoom == null) {
-            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.CREATED);
         }
         cinemaShow.setCinemaRoom(cinemaRoom);
         cinemaShowRepository.save(cinemaShow);
@@ -77,7 +77,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
     public ResponseEntity<?> updateCinemaShow(Long id, CinemaShow cinemaShowNew) {
         CinemaShow cinemaShowOld = cinemaShowRepository.findOne(id);
         if (cinemaShowOld == null) {
-            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.CREATED);
         }
         cinemaShowOld.update(cinemaShowNew);
         //cinemaShowRepository.save(cinemaShowOld);
@@ -99,7 +99,7 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         Film filmItem = filmRepository.findOne(cinemaShowInfo.getFilmId());
         CinemaRoom cinemaRoomItem = cinemaRoomRepository.findOne(cinemaShowInfo.getCinemaRoomId());
         if (filmItem == null || cinemaRoomItem == null) {
-            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ResponseStatus(), HttpStatus.CREATED);
         }
         CinemaShow cinemaShow = new CinemaShow(new Date(cinemaShowInfo.getShowDate()),
                                                cinemaShowInfo.getStatus(),
@@ -138,5 +138,33 @@ public class CinemaShowServiceImpl implements CinemaShowService {
         return new ResponseEntity<>(cinemaShowDTOList, HttpStatus.CREATED);
     }
 
+    @Override
+    public ResponseEntity<?> getCinemaShowList() {
+        Iterable<CinemaShow> cinemaShowList = cinemaShowRepository.findAll();
+        List<CinemaShowDTO> cinemaShowDTOList = new ArrayList<>();
+        for (CinemaShow cinemaShow : cinemaShowList) {
+            cinemaShowDTOList.add(new CinemaShowDTO(cinemaShow));
+        }
+        return new ResponseEntity<>(cinemaShowDTOList, HttpStatus.CREATED);
+    }
 
+    @Override
+    public ResponseEntity<?> deleteSafeCinemaShow(Long cinemaShowId) {
+        CinemaShow cinemaShow = cinemaShowRepository.findOne(cinemaShowId);
+        if (cinemaShow == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no cinemaShow"), HttpStatus.CREATED);
+        }
+        boolean isUsed = false;
+        for(Ticket ticket : cinemaShow.getTickets()) {
+            if (ticket.getUser() != null) {
+                isUsed = true;
+                break;
+            }
+        }
+        if (isUsed) {
+            return new ResponseEntity<>(new ResponseStatus(false, "is used"), HttpStatus.CREATED);
+        }
+        cinemaShowRepository.delete(cinemaShowId);
+        return new ResponseEntity<>(new ResponseStatus(true, "cinemaShow deleted"), HttpStatus.CREATED);
+    }
 }

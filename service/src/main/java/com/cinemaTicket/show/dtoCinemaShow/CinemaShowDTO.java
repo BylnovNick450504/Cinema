@@ -8,6 +8,7 @@ public class CinemaShowDTO {
     private String showDayMonthYear;
     private String showHourMin;
     private String filmName;
+    private String roomName;
 
     public CinemaShowDTO() {
     }
@@ -19,11 +20,20 @@ public class CinemaShowDTO {
         this.id = id;
     }
 
+    public CinemaShowDTO(Long id, String showDayMonthYear, String showHourMin, String filmName, String roomName) {
+        this.id = id;
+        this.showDayMonthYear = showDayMonthYear;
+        this.showHourMin = showHourMin;
+        this.filmName = filmName;
+        this.roomName = roomName;
+    }
+
     public CinemaShowDTO(CinemaShow cinemaShow) {
         this.id = cinemaShow.getId();
         this.filmName = cinemaShow.getFilm().getName();
         this.showDayMonthYear = DatePrinter.printDayMonthYear(cinemaShow.getShowDate());
         this.showHourMin = DatePrinter.printHourMin(cinemaShow.getShowDate());
+        this.roomName = cinemaShow.getCinemaRoom().getName();
     }
 
     public String getShowDayMonthYear() {
@@ -40,5 +50,9 @@ public class CinemaShowDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public String getRoomName() {
+        return roomName;
     }
 }

@@ -56,4 +56,15 @@ public class CinemaShowController {
     public ResponseEntity<?> getCinemaShowByFilm(@RequestParam(name = "filmId") Long filmId) {
         return cinemaShowService.getCinemaShowByFilm(filmId);
     }
+
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public ResponseEntity<?> getCinemaShowList() {
+        return cinemaShowService.getCinemaShowList();
+    }
+
+    @RequestMapping(value = "/show/safe/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteSafeCinemaShow(@PathVariable Long id) {
+        return cinemaShowService.deleteSafeCinemaShow(id);
+    }
 }

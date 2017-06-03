@@ -1,6 +1,7 @@
 package com.cinemaTicket.room;
 
 
+import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.seat.SeatRepository;
@@ -93,7 +94,7 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         CinemaRoom cinemaRoom = cinemaRoomRepository.findOne(roomId);
         if (cinemaRoom == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no cinemaRoom"),
-                    HttpStatus.NOT_FOUND);
+                    HttpStatus.CREATED);
         }
         if (!cinemaRoom.getCinemaShows().isEmpty()) {
             return new ResponseEntity<>(new ResponseStatus(false, "no cinemaRoom"),
@@ -129,7 +130,7 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         CinemaRoom cinemaRoom = cinemaRoomRepository.findOne(cinemaRoomDTO.getId());
         if (cinemaRoom == null) {
             return new ResponseEntity<>(new ResponseStatus(false, "no cinemaRoom"),
-                    HttpStatus.NOT_FOUND);
+                    HttpStatus.CREATED);
         }
         if (cinemaRoom.getRow().equals(cinemaRoomDTO.getRow()) && cinemaRoom.getCol().equals(cinemaRoomDTO.getNumber())) {
             cinemaRoom.update(cinemaRoomDTO);
@@ -141,5 +142,20 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
         cinemaRoom = cinemaRoomRepository.save(cinemaRoom);
         CinemaRoomDTO refreshedRoomDTO = new CinemaRoomDTO(cinemaRoom);
         return new ResponseEntity<>(refreshedRoomDTO, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> isUsed(CustomSoloRequest roomId) {
+        CinemaRoom cinemaRoom = cinemaRoomRepository.findOne(roomId.getId());
+        if (cinemaRoom == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no cinemaRoom"),
+                    HttpStatus.CREATED);
+        }
+        if(!cinemaRoom.getCinemaShows().isEmpty()) {
+            return new ResponseEntity<>(new ResponseStatus(false, "is used"),
+                    HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(new ResponseStatus(true, "is not used"),
+                HttpStatus.CREATED);
     }
 }

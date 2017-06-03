@@ -1,11 +1,7 @@
 package com.cinemaTicket.film;
 
-
-import com.cinemaTicket.core.CustomMonoRequest;
 import com.cinemaTicket.core.CustomSoloRequest;
-import com.cinemaTicket.core.ResponseStatus;
 import com.cinemaTicket.film.filmDTO.FilmDTO;
-import com.cinemaTicket.film.filmDTO.FilmDTOList;
 import org.springframework.http.ResponseEntity;
 
 public interface FilmService {
@@ -17,4 +13,5 @@ public interface FilmService {
     ResponseEntity<?> getByAgePlus(int age);
     ResponseEntity<?> deleteSafeFilm(Long id);
     ResponseEntity<?> updateFilm(FilmDTO filmDTO);
+    ResponseEntity<?> isUsed(CustomSoloRequest filmId);
 }

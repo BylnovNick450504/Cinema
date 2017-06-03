@@ -1,5 +1,6 @@
 package com.cinemaTicket.room;
 
+import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -10,4 +11,5 @@ public interface CinemaRoomService {
     ResponseEntity<?> getActiveCinemaRooms();
     ResponseEntity<?> deleteSafe(Long id);
     ResponseEntity<?> updateCinemaRoom(CinemaRoomDTO cinemaRoomDTO);
+    ResponseEntity<?> isUsed(CustomSoloRequest roomId);
 }
