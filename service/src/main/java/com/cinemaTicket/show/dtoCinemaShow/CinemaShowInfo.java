@@ -1,4 +1,4 @@
-package com.cinemaTicket.show;
+package com.cinemaTicket.show.dtoCinemaShow;
 
 public class CinemaShowInfo {
     private Long showDate;

@@ -3,8 +3,10 @@ package com.cinemaTicket.room;
 
 import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
+import com.cinemaTicket.room.dtoCinemaRoom.CinemaRoomInfo;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.seat.SeatRepository;
+import com.cinemaTicket.room.dtoCinemaRoom.CinemaRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -119,10 +121,15 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
     }
 
     private void destroySeatList(CinemaRoom cinemaRoom) {
+        List<Long> idList = new ArrayList<>();
         for (Seat seat : cinemaRoom.getSeats()) {
-            seatRepository.delete(seat);
+            seat.setCinemaRoom(null);
+            idList.add(seat.getId());
         }
-        cinemaRoom.deleteSeatList();
+        cinemaRoom.getSeats().clear();
+        for (Long id : idList) {
+            seatRepository.delete(id);
+        }
     }
 
     @Override
@@ -133,9 +140,9 @@ public class CinemaRoomServiceImpl implements CinemaRoomService{
                     HttpStatus.CREATED);
         }
         if (cinemaRoom.getRow().equals(cinemaRoomDTO.getRow()) && cinemaRoom.getCol().equals(cinemaRoomDTO.getNumber())) {
-            cinemaRoom.update(cinemaRoomDTO);
+            cinemaRoom.update(cinemaRoomDTO.getCinemaRoom());
         } else {
-            cinemaRoom.update(cinemaRoomDTO);
+            cinemaRoom.update(cinemaRoomDTO.getCinemaRoom());
             destroySeatList(cinemaRoom);
             createSeatList(cinemaRoom);
         }

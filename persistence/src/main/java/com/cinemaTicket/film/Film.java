@@ -1,8 +1,6 @@
 package com.cinemaTicket.film;
 
 import com.cinemaTicket.core.BaseEntity;
-import com.cinemaTicket.core.DatePrinter;
-import com.cinemaTicket.film.filmDTO.FilmDTO;
 import com.cinemaTicket.show.CinemaShow;
 
 import javax.persistence.*;
@@ -66,7 +64,8 @@ public class Film extends BaseEntity {
                 Integer rating,
                 Double recommendTicketCost,
                 String picturePath,
-                Integer duration
+                Integer duration,
+                Integer filmStatus
     ) {
         this.name = name;
         this.producer = producer;
@@ -78,7 +77,7 @@ public class Film extends BaseEntity {
         this.recommendTicketCost = recommendTicketCost;
         this.picturePath = picturePath;
         this.duration = duration;
-        this.filmStatus = 1;
+        this.filmStatus = filmStatus;
     }
 
     public void updateFilm(Film film) {
@@ -191,16 +190,16 @@ public class Film extends BaseEntity {
         this.duration = duration;
     }
 
-    public void update(FilmDTO filmDTO) {
+    public void update(Film filmDTO) {
         name = filmDTO.getName();
         producer = filmDTO.getProducer();
         budget = filmDTO.getBudget();
-        premiereDate = DatePrinter.convertToDate(filmDTO.getPremiereDate());
+        premiereDate = filmDTO.getPremiereDate();
         description = filmDTO.getDescription();
         age = filmDTO.getAge();
         rating = filmDTO.getRating();
         recommendTicketCost = filmDTO.getRecommendTicketCost();
-        filmStatus = filmDTO.getStatus();
+        filmStatus = filmDTO.getFilmStatus();
         picturePath = filmDTO.getPicturePath();
         duration = filmDTO.getDuration();
     }

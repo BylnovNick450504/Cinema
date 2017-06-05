@@ -2,6 +2,8 @@ package com.cinemaTicket.room;
 
 import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
+import com.cinemaTicket.room.dtoCinemaRoom.CinemaRoomInfo;
+import com.cinemaTicket.room.dtoCinemaRoom.CinemaRoomDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface CinemaRoomService {

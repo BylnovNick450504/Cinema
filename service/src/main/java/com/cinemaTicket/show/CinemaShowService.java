@@ -2,6 +2,7 @@ package com.cinemaTicket.show;
 
 
 import com.cinemaTicket.core.CustomSoloRequest;
+import com.cinemaTicket.show.dtoCinemaShow.CinemaShowInfo;
 import org.springframework.http.ResponseEntity;
 
 public interface CinemaShowService {

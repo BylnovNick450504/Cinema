@@ -29,8 +29,19 @@ public class DatePrinter {
         return "" + convertMinHourDayMonth(date.getHours()) + ":" +
                 convertMinHourDayMonth(date.getMinutes());
     }
+
+    public static String printDayMonthYearHourMin(Date date) {
+        return "" + convertMinHourDayMonth(date.getDay()) + "." +
+                    convertMinHourDayMonth(date.getMonth()) + "." +
+                    convertYear(date.getYear()) + " " +
+                    convertMinHourDayMonth(date.getHours()) + ":" +
+                    convertMinHourDayMonth(date.getMinutes());
+    }
+
     //TODO: change function
     public static Date convertToDate(String s) {
         return new Date();
     }
+
+
 }

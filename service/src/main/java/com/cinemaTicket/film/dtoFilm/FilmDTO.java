@@ -1,8 +1,7 @@
-package com.cinemaTicket.film.filmDTO;
+package com.cinemaTicket.film.dtoFilm;
 
+import com.cinemaTicket.core.DatePrinter;
 import com.cinemaTicket.film.Film;
-
-import java.util.Date;
 
 public class FilmDTO {
     private Long id;
@@ -29,10 +28,9 @@ public class FilmDTO {
                    int age,
                    int rating,
                    double recommendTicketCost,
+                   int status,
                    String picturePath,
-                   int duration,
-                   int status
-
+                   int duration
     ) {
         this.id = id;
         this.name = name;
@@ -53,7 +51,7 @@ public class FilmDTO {
         this.name = film.getName();
         this.producer = film.getProducer();
         this.budget = film.getBudget();
-        this.premiereDate = convertData(film.getPremiereDate());
+        this.premiereDate = DatePrinter.printDayMonthYear(film.getPremiereDate());
         this.description = film.getDescription();
         this.age = film.getAge();
         this.rating = film.getRating();
@@ -61,25 +59,6 @@ public class FilmDTO {
         this.picturePath = film.getPicturePath();
         this.duration = film.getDuration();
         this.status = film.getFilmStatus();
-    }
-
-    private String checkDayAndMonth(int digit) {
-        if (digit < 10) {
-            return "0" + digit;
-        }
-        return  "" + digit;
-    }
-
-    private String checkYear(int year) {
-        return "20" + year%100;
-    }
-
-    private String convertData(Date date) {
-        return "" + checkDayAndMonth(date.getDay()) +
-                "." +
-                checkDayAndMonth(date.getMonth()) +
-                "." +
-                checkYear(date.getYear());
     }
 
     public String getName() {
@@ -128,5 +107,21 @@ public class FilmDTO {
 
     public int getStatus() {
         return status;
+    }
+
+    public Film getFilm() {
+        return new Film(
+                getName(),
+                getProducer(),
+                getBudget(),
+                DatePrinter.convertToDate(getPremiereDate()),
+                getAge(),
+                getDescription(),
+                getRating(),
+                getRecommendTicketCost(),
+                getPicturePath(),
+                getDuration(),
+                getStatus()
+        );
     }
 }

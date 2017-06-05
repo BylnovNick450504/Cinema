@@ -3,10 +3,10 @@ package com.cinemaTicket.room;
 import com.cinemaTicket.core.BaseEntity;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.show.CinemaShow;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,13 +108,13 @@ public class CinemaRoom extends BaseEntity {
         this.cinemaShows = cinemaShows;
     }
 
-    public void update(CinemaRoomDTO cinemaRoomDTO) {
-        this.name = cinemaRoomDTO.getName();
-        this.row = cinemaRoomDTO.getRow();
-        this.col = cinemaRoomDTO.getNumber();
+    public void update(CinemaRoom cinemaRoom) {
+        this.name = cinemaRoom.getName();
+        this.row = cinemaRoom.getRow();
+        this.col = cinemaRoom.getCol();
     }
 
     public void deleteSeatList() {
-        this.seats.clear();
+        seats.clear();
     }
 }

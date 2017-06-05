@@ -1,4 +1,4 @@
-package com.cinemaTicket.room;
+package com.cinemaTicket.room.dtoCinemaRoom;
 
 
 public class CinemaRoomInfo {

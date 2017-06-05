@@ -1,7 +1,7 @@
 package com.cinemaTicket.film;
 
 import com.cinemaTicket.core.CustomSoloRequest;
-import com.cinemaTicket.film.filmDTO.FilmDTO;
+import com.cinemaTicket.film.dtoFilm.FilmDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,12 +56,20 @@ public class FilmController {
     }
 
     @RequestMapping(value = "/film", method = RequestMethod.PUT)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> changeFilm(@RequestBody FilmDTO filmDTO) {
         return filmService.updateFilm(filmDTO);
     }
 
     @RequestMapping(value = "/film/check", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> isUsed(@RequestBody CustomSoloRequest filmId) {
         return filmService.isUsed(filmId);
+    }
+
+    @RequestMapping(value = "/film/statistic", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getFilmAndSoldTicketStatistic() {
+        return filmService.getFilmAndSoldTicketStatistic();
     }
 }

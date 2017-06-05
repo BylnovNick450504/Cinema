@@ -2,23 +2,30 @@ package com.cinemaTicket.film;
 
 import com.cinemaTicket.core.CustomSoloRequest;
 import com.cinemaTicket.core.ResponseStatus;
-import com.cinemaTicket.film.filmDTO.FilmDTO;
+import com.cinemaTicket.film.dtoFilm.FilmDTO;
+import com.cinemaTicket.film.dtoFilm.FilmStatisticDTO;
+import com.cinemaTicket.show.CinemaShow;
+import com.cinemaTicket.ticket.Ticket;
+import com.cinemaTicket.ticket.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
+    private final TicketRepository ticketRepository;
 
     @Autowired
-    public FilmServiceImpl(FilmRepository filmRepository) {
+    public FilmServiceImpl(FilmRepository filmRepository, TicketRepository ticketRepository) {
         this.filmRepository = filmRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     @Override
@@ -100,7 +107,7 @@ public class FilmServiceImpl implements FilmService {
             return new ResponseEntity<>(new ResponseStatus(false, "no film"),
                     HttpStatus.OK);
         }
-        film.update(filmDTO);
+        film.update(filmDTO.getFilm());
         film = filmRepository.save(film);
         FilmDTO refreshedFilmDTO = new FilmDTO(film);
         return new ResponseEntity<>(refreshedFilmDTO, HttpStatus.OK);
@@ -119,5 +126,24 @@ public class FilmServiceImpl implements FilmService {
         }
         return new ResponseEntity<>(new ResponseStatus(true, "is not used"),
                 HttpStatus.OK);
+    }
+
+    private Long getAmountOfSoldTickets(Film film) {
+        Long amount = 0L;
+        for (CinemaShow cinemaShow : film.getCinemaShows()) {
+            List<Ticket> ticketList = ticketRepository.findByUserIsNotNullAndCinemaShow(cinemaShow);
+            amount += ticketList.size();
+        }
+        return amount;
+    }
+
+    @Override
+    public ResponseEntity<?> getFilmAndSoldTicketStatistic() {
+        Iterable<Film> filmList = filmRepository.findAll();
+        List<FilmStatisticDTO> filmStatisticDTOList = new ArrayList<>();
+        for (Film film : filmList) {
+            filmStatisticDTOList.add(new FilmStatisticDTO(film.getName(), getAmountOfSoldTickets(film)));
+        }
+        return new ResponseEntity<>(filmStatisticDTOList, HttpStatus.CREATED);
     }
 }

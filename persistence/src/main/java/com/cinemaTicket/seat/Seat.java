@@ -19,7 +19,6 @@ public class Seat extends BaseEntity {
     @NotNull
     private int row;
 
-    @NotNull
     @OneToOne
     @JoinColumn(name = "cinema_room_id")
     private CinemaRoom cinemaRoom;

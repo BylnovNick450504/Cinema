@@ -1,6 +1,7 @@
 package com.cinemaTicket.show;
 
 import com.cinemaTicket.core.CustomSoloRequest;
+import com.cinemaTicket.show.dtoCinemaShow.CinemaShowInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

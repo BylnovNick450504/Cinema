@@ -8,6 +8,7 @@ import com.cinemaTicket.room.CinemaRoom;
 import com.cinemaTicket.room.CinemaRoomRepository;
 import com.cinemaTicket.seat.Seat;
 import com.cinemaTicket.show.dtoCinemaShow.CinemaShowDTO;
+import com.cinemaTicket.show.dtoCinemaShow.CinemaShowInfo;
 import com.cinemaTicket.ticket.Ticket;
 import com.cinemaTicket.ticket.TicketRepository;
 import com.cinemaTicket.ticket.TicketStatus;

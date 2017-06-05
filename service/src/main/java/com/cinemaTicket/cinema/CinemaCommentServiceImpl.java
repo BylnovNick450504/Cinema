@@ -1,6 +1,8 @@
 package com.cinemaTicket.cinema;
 
-import com.cinemaTicket.cinema.mock.CinemaCommentMock;
+import com.cinemaTicket.cinema.dtoCinemaComment.CinemaCommentDTO;
+import com.cinemaTicket.core.ResponseStatus;
+import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +24,23 @@ public class CinemaCommentServiceImpl implements CinemaCommentService {
     @Override
     public ResponseEntity<?> getCinemaComments() {
         Iterable<CinemaComment> cinemaComments = cinemaCommentRepository.findAll();
-        List<CinemaCommentMock> cinemaCommentMocks = new ArrayList<>();
+        List<CinemaCommentDTO> cinemaCommentDTOS = new ArrayList<>();
 
         for (CinemaComment cinemaComment : cinemaComments) {
-            CinemaCommentMock cinemaCommentMock = new CinemaCommentMock(cinemaComment);
-            cinemaCommentMocks.add(cinemaCommentMock);
+            CinemaCommentDTO cinemaCommentDTO = new CinemaCommentDTO(cinemaComment);
+            cinemaCommentDTOS.add(cinemaCommentDTO);
         }
-        return new ResponseEntity<>(cinemaCommentMocks, HttpStatus.CREATED);
+        return new ResponseEntity<>(cinemaCommentDTOS, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> deleteCinemaComment(Long cinemaCommentId) {
+        CinemaComment cinemaComment = cinemaCommentRepository.findOne(cinemaCommentId);
+        System.out.println(cinemaComment);
+        if (cinemaComment == null) {
+            return new ResponseEntity<>(new ResponseStatus(false, "no cinemaComment"), HttpStatus.CREATED);
+        }
+        cinemaCommentRepository.delete(cinemaCommentId);
+        return new ResponseEntity<>(new ResponseStatus(true, "cinemaComment is deleted"), HttpStatus.CREATED);
     }
 }
-
